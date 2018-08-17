@@ -32,6 +32,8 @@ Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
 Plug 'morhetz/gruvbox'
 call plug#end()
 
+let mapleader=','
+
 " LeaderF
 let g:Lf_StlColorscheme = 'gruvbox'
 let g:Lf_WindowHeight = 0.3
@@ -130,8 +132,6 @@ let g:qfenter_keymap.topen = ['<C-T>']
 
 " gruvbox
 let g:gruvbox_contrast_dark = 'hard'
-
-let mapleader=','
 
 " basic config
 syntax on
