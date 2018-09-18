@@ -30,13 +30,12 @@ Plug 'yssl/QFEnter'
 Plug 'cespare/vim-toml', { 'for': 'toml' }
 Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
 " colors
-Plug 'morhetz/gruvbox'
+Plug 'NLKNguyen/papercolor-theme'
 call plug#end()
 
 let mapleader=','
 
 " LeaderF
-let g:Lf_StlColorscheme = 'gruvbox'
 let g:Lf_WindowHeight = 0.3
 let g:Lf_MruMaxFiles = 15
 let g:Lf_StlSeparator = { 'left': '', 'right': '' }
@@ -94,7 +93,7 @@ let g:lightline.active = {
       \              [ 'linter_checking', 'linter_errors', 'linter_warnings', 'linter_ok' ],
       \              [ 'fileformat', 'fileencoding', 'filetype' ]]
       \}
-let g:lightline.colorscheme = 'gruvbox'
+let g:lightline.colorscheme = 'PaperColor'
 
 "vim-gitgutter
 let g:gitgutter_override_sign_column_highlight = 0
@@ -124,15 +123,12 @@ let g:qfenter_keymap.vopen = ['<C-V>']
 let g:qfenter_keymap.hopen = ['<C-H>']
 let g:qfenter_keymap.topen = ['<C-T>']
 
-" gruvbox
-let g:gruvbox_contrast_dark = 'hard'
-
 " basic config
 syntax on
 syntax enable
 set termguicolors
 set background=dark
-colorscheme gruvbox
+colorscheme PaperColor
 set ai
 set re=1
 set bs=2
