@@ -16,7 +16,6 @@ Plug 'Shougo/echodoc.vim'
 Plug 'ervandew/supertab'
 " lightline
 Plug 'itchyny/lightline.vim'
-Plug 'maximbaz/lightline-ale'
 " Git
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
@@ -143,7 +142,7 @@ autocmd InsertLeave * :set relativenumber
 " global key bindings
 "
 " windows
-nnoremap <leader>wj  <c-w>j
+nnoremap <leader>wj <c-w>j
 nnoremap <leader>wk <c-w>k
 nnoremap <leader>wh <c-w>h
 nnoremap <leader>wl <c-w>l
@@ -164,6 +163,7 @@ nnoremap <silent><leader>fp :Files<cr>
 nnoremap <silent><leader>ff :BTags<cr>
 nnoremap <silent><leader>fm :Marks<cr>
 nnoremap <silent><leader>fc :Commands<cr>
+nnoremap <silent><leader>fg :Ag<space>
 nnoremap <silent><leader>f* :Ag <c-r><c-w><cr>
 
 " git
