@@ -28,7 +28,7 @@ Plug 'bronson/vim-trailing-whitespace'
 Plug 'cespare/vim-toml', { 'for': 'toml' }
 Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
 " colors
-Plug 'NLKNguyen/papercolor-theme'
+Plug 'morhetz/gruvbox'
 call plug#end()
 
 let mapleader=' '
@@ -72,10 +72,10 @@ let g:lightline.active = {
       \}
 let g:lightline.separator = { 'left': '', 'right': '' }
 let g:lightline.subseparator = { 'left': '', 'right': '' }
-let g:lightline.colorscheme = 'PaperColor'
+let g:lightline.colorscheme = 'jellybeans'
 
 "vim-gitgutter
-let g:gitgutter_override_sign_column_highlight = 0
+let g:gitgutter_override_sign_column_highlight = 1
 let g:gitgutter_sign_modified = '!'
 let g:gitgutter_sign_modified_removed = '~'
 let g:gitgutter_sign_column_always = 0
@@ -92,7 +92,7 @@ syntax on
 syntax enable
 set termguicolors
 set background=dark
-colorscheme PaperColor
+colorscheme gruvbox
 set ai
 set re=1
 set bs=2
