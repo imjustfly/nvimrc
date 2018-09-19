@@ -170,7 +170,7 @@ nnoremap <silent><leader>f* :Ag <c-r><c-w><cr>
 nnoremap <silent><leader>gs :Gstatus<cr>
 nnoremap <silent><leader>gc :Gcommit<cr>
 nnoremap <silent><leader>gpl :Gpull<cr>
-nnoremap <silent><leader>gps :Gpush<cr>
+nnoremap <silent><leader>gps :Gpush<cr>:copen<cr>
 
 " vim
 nnoremap <silent><leader>vq :qall<cr>
