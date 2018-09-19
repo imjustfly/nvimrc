@@ -4,8 +4,9 @@
 "
 
 call plug#begin('~/.config/nvim/plugged')
-" LeaderF
-Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
+" fzf
+Plug '/usr/local/opt/fzf'
+Plug 'junegunn/fzf.vim'
 " language client
 Plug 'autozimu/LanguageClient-neovim', { 'branch': 'next', 'do': 'bash install.sh' }
 " completion
@@ -24,9 +25,6 @@ Plug 'Raimondi/delimitMate'
 Plug 'luochen1990/rainbow'
 " show tralling whitespace
 Plug 'bronson/vim-trailing-whitespace'
-" global search
-Plug 'rking/ag.vim'
-Plug 'yssl/QFEnter'
 " language enhancement
 Plug 'cespare/vim-toml', { 'for': 'toml' }
 Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
@@ -34,19 +32,14 @@ Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
 Plug 'NLKNguyen/papercolor-theme'
 call plug#end()
 
-let mapleader=','
+let mapleader=' '
 
-" LeaderF
-let g:Lf_WindowHeight = 0.3
-let g:Lf_MruMaxFiles = 15
-let g:Lf_StlSeparator = { 'left': '', 'right': '' }
-let g:Lf_CommandMap = {'<C-]>': ['<C-V>'], '<C-X>': ['<C-H>']}
-let g:Lf_DefaultMode = 'FullPath'
-nmap <silent> <c-p> :LeaderfFile<cr>
-nmap <silent> <c-u> :LeaderfMruCwd<cr>
-nmap <silent> <c-y> :LeaderfBuffer<cr>
-nnoremap <silent> <leader>f :LeaderfFunction<cr>
-nnoremap <silent> <leader>t :LeaderfBufTag<cr>
+" fzf
+let g:fzf_action = {
+  \ 'ctrl-t': 'tab split',
+  \ 'ctrl-h': 'split',
+  \ 'ctrl-v': 'vsplit' }
+let g:fzf_buffers_jump = 1
 
 " language client
 let g:LanguageClient_serverCommands = {
@@ -54,9 +47,6 @@ let g:LanguageClient_serverCommands = {
             \ 'python': ['/Users/justfly/.pyenv/versions/3.6.5/bin/pyls'],
             \ 'c' : ['cquery', '--log-file=/tmp/cquery.log', '--init={"cacheDirectory":"/tmp/cquery/", "completion": {"filterAndSort": false}}'],
     \ }
-nnoremap <silent> <leader>d :call LanguageClient#textDocument_definition()<CR>
-nnoremap <silent> <leader>r :call LanguageClient#textDocument_references()<CR>:lopen<CR>
-nnoremap <silent> <leader>h :call LanguageClient#textDocument_hover()<CR>
 au BufWritePre *.h,*.c,*.go,*.py :call LanguageClient_textDocument_formatting()
 
 " ncm2
@@ -97,21 +87,6 @@ au FileType markdown let b:delimitMate_nesting_quotes = ["`"]
 
 " rainbow
 let g:rainbow_active = 1
-
-" remove trailing whitespace
-map <leader>s :FixWhitespace<cr>
-
-" ag
-nnoremap <silent> <leader>* :Ag <c-r><c-w><cr>
-let g:ag_apply_qmappings = 1
-let g:ag_apply_lmappings = 1
-
-" qfenter
-let g:qfenter_keymap = {}
-let g:qfenter_keymap.open = ['<CR>']
-let g:qfenter_keymap.vopen = ['<C-V>']
-let g:qfenter_keymap.hopen = ['<C-H>']
-let g:qfenter_keymap.topen = ['<C-T>']
 
 " basic config
 syntax on
@@ -165,11 +140,39 @@ au FocusGained * :set relativenumber
 autocmd InsertEnter * :set norelativenumber number
 autocmd InsertLeave * :set relativenumber
 
-" window switch
-map <c-j> <c-w>j
-map <c-k> <c-w>k
-map <c-h> <c-w>h
-map <c-l> <c-w>l
-nnoremap <silent><leader>q :bd<cr>
-nnoremap <silent><leader>w :close<cr>
-nnoremap <silent><leader>x :qall<cr>
+" global key bindings
+"
+" windows
+nnoremap <leader>wj  <c-w>j
+nnoremap <leader>wk <c-w>k
+nnoremap <leader>wh <c-w>h
+nnoremap <leader>wl <c-w>l
+nnoremap <silent><leader>wd :close<cr>
+
+" buffers
+nnoremap <silent><leader>bd :bd<cr>
+
+" languages
+nnoremap <silent><leader>ld :call LanguageClient#textDocument_definition()<CR>
+nnoremap <silent><leader>lr :call LanguageClient#textDocument_references()<CR>
+nnoremap <silent><leader>lh :call LanguageClient#textDocument_hover()<CR>
+
+" jumps
+nnoremap <silent><leader>fw :Windows<cr>
+nnoremap <silent><leader>fb :Buffers<cr>
+nnoremap <silent><leader>fp :Files<cr>
+nnoremap <silent><leader>ff :BTags<cr>
+nnoremap <silent><leader>fm :Marks<cr>
+nnoremap <silent><leader>fc :Commands<cr>
+nnoremap <silent><leader>f* :Ag <c-r><c-w><cr>
+
+" git
+nnoremap <silent><leader>gs :Gstatus<cr>
+nnoremap <silent><leader>gc :Gcommit<cr>
+nnoremap <silent><leader>gpl :Gpull<cr>
+nnoremap <silent><leader>gps :Gpush<cr>
+
+" vim
+nnoremap <silent><leader>vq :qall<cr>
+nnoremap <silent><leader>vm :messages<cr>
+nnoremap <leader>vh :help<space>
