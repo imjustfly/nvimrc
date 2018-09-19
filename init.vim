@@ -39,7 +39,7 @@ let mapleader=','
 " LeaderF
 let g:Lf_WindowHeight = 0.3
 let g:Lf_MruMaxFiles = 15
-let g:Lf_StlSeparator = { 'left': '', 'right': '' }
+let g:Lf_StlSeparator = { 'left': '', 'right': '' }
 let g:Lf_CommandMap = {'<C-]>': ['<C-V>'], '<C-X>': ['<C-H>']}
 let g:Lf_DefaultMode = 'FullPath'
 nmap <silent> <c-p> :LeaderfFile<cr>
