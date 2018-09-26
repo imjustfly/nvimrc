@@ -33,6 +33,7 @@ Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
 Plug 'morhetz/gruvbox'
 call plug#end()
 
+" leader key
 let mapleader=' '
 
 " fzf
@@ -96,6 +97,9 @@ let g:NERDDefaultAlign = 'left'
 let g:NERDCommentEmptyLines = 1
 let g:NERDTrimTrailingWhitespace = 1
 let g:NERDToggleCheckAllLines = 1
+
+" gruvbox
+let g:gruvbox_contrast_dark = 'hard'
 
 " basic config
 syntax on
