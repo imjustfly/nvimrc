@@ -66,22 +66,29 @@ let g:SuperTabRetainCompletionType=2
 
 " lightline
 let g:lightline = {}
-let g:lightline.component_function = { 'gitbranch': 'fugitive#head' }
+let g:lightline.component = {
+    \    'winnr': '%{nr2char(9311 + winnr())} ',
+    \    'filename': '❖ %n %t',
+    \    'gitbranch': ' %{fugitive#head()}',
+    \ }
 let g:lightline.active = {
-      \   'left': [ [ 'mode', 'paste' ],
-      \             [ 'gitbranch' ],
-      \             ['readonly', 'filename', 'modified' ] ],
-      \   'right': [ [ 'lineinfo' ],
-      \              [ 'fileformat', 'fileencoding', 'filetype' ]]
-      \}
-let g:lightline.separator = { 'left': '', 'right': '' }
-let g:lightline.subseparator = { 'left': '', 'right': '' }
+    \    'left': [ [ 'winnr', 'mode', 'paste' ],
+    \              [ 'gitbranch' ],
+    \              ['readonly', 'filename', 'modified' ] ],
+    \    'right': [ [ 'lineinfo' ],
+    \               [ 'fileformat', 'fileencoding', 'filetype' ]]
+    \ }
+let g:lightline.inactive = {
+    \ 'left': [ [ 'winnr' ],
+    \           [ 'filename' ] ],
+    \ 'right': [ [ 'lineinfo' ],
+    \            [ 'percent' ] ] }
 let g:lightline.colorscheme = 'jellybeans'
 
 "vim-gitgutter
 let g:gitgutter_override_sign_column_highlight = 1
 let g:gitgutter_sign_modified = '!'
-let g:gitgutter_sign_modified_removed = '~'
+let g:gitgutter_sign_modified_removed = '±'
 let g:gitgutter_sign_column_always = 0
 
 " DelimitMate
@@ -161,6 +168,13 @@ nnoremap <leader>wj <c-w>j
 nnoremap <leader>wk <c-w>k
 nnoremap <leader>wh <c-w>h
 nnoremap <leader>wl <c-w>l
+nnoremap <leader>w1 1<c-w><c-w>
+nnoremap <leader>w2 2<c-w><c-w>
+nnoremap <leader>w3 3<c-w><c-w>
+nnoremap <leader>w4 4<c-w><c-w>
+nnoremap <leader>w5 5<c-w><c-w>
+nnoremap <leader>w6 6<c-w><c-w>
+nnoremap <leader>ws <c-w><c-w>
 nnoremap <silent><leader>wd :close<cr>
 
 " buffers
