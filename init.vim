@@ -17,7 +17,7 @@ Plug 'ervandew/supertab'
 " lightline
 Plug 'itchyny/lightline.vim'
 " Git
-Plug 'tpope/vim-fugitive'
+Plug 'itchyny/vim-gitbranch'
 Plug 'airblade/vim-gitgutter'
 " brackets
 Plug 'Raimondi/delimitMate'
@@ -69,7 +69,7 @@ let g:lightline = {}
 let g:lightline.component = {
     \    'winnr': '%{nr2char(9311 + winnr())} ',
     \    'filename': '❖ %n %t',
-    \    'gitbranch': ' %{fugitive#head()}',
+    \    'gitbranch': ' %{gitbranch#name()}',
     \ }
 let g:lightline.active = {
     \    'left': [ [ 'winnr', 'mode', 'paste' ],
@@ -138,6 +138,7 @@ set fillchars+=vert:\|
 set expandtab
 set shiftwidth=4
 set tabstop=4
+set switchbuf=useopen,usetab
 
 " language related configs
 filetype plugin indent on
@@ -181,9 +182,10 @@ nnoremap <silent><leader>wd :close<cr>
 nnoremap <silent><leader>bd :bd<cr>
 
 " languages
-nnoremap <silent><leader>ld :call LanguageClient#textDocument_definition()<CR>
+nnoremap <silent><leader>ld :call LanguageClient#textDocument_definition({'gotoCmd': 'split'})<CR>
 nnoremap <silent><leader>lr :call LanguageClient#textDocument_references()<CR>
 nnoremap <silent><leader>lh :call LanguageClient#textDocument_hover()<CR>
+nnoremap <silent><leader>lc :call LanguageClient_contextMenu()<CR>
 nnoremap <silent><leader>ls :LanguageClientStart<CR>
 
 " jumps
@@ -195,12 +197,6 @@ nnoremap <silent><leader>fm :Marks<cr>
 nnoremap <silent><leader>fc :Commands<cr>
 nnoremap <silent><leader>fg :Ag<space>
 nnoremap <silent><leader>f* :Ag <c-r><c-w><cr>
-
-" git
-nnoremap <silent><leader>gs :Gstatus<cr>
-nnoremap <silent><leader>gc :Gcommit<cr>
-nnoremap <silent><leader>gpl :Gpull<cr>
-nnoremap <silent><leader>gps :Gpush<cr>:copen<cr>
 
 " comment
 imap <C-c> <plug>NERDCommenterInsert
