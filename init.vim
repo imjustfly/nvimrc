@@ -11,6 +11,7 @@ Plug 'junegunn/fzf.vim'
 Plug 'autozimu/LanguageClient-neovim', { 'branch': 'next', 'do': 'bash install.sh' }
 " completion
 Plug 'ncm2/ncm2'
+Plug 'ncm2/ncm2-bufword'
 Plug 'roxma/nvim-yarp'
 Plug 'Shougo/echodoc.vim'
 Plug 'ervandew/supertab'
@@ -68,7 +69,7 @@ let g:SuperTabRetainCompletionType=2
 let g:lightline = {}
 let g:lightline.component = {
     \    'winnr': '%{nr2char(9311 + winnr())} ',
-    \    'filename': '❖ %n %t',
+    \    'filename': '❖ %t',
     \    'gitbranch': ' %{gitbranch#name()}',
     \ }
 let g:lightline.active = {
@@ -182,7 +183,7 @@ nnoremap <silent><leader>wd :close<cr>
 nnoremap <silent><leader>bd :bd<cr>
 
 " languages
-nnoremap <silent><leader>ld :call LanguageClient#textDocument_definition({'gotoCmd': 'split'})<CR>
+nnoremap <silent><leader>ld :call LanguageClient#textDocument_definition()<CR>
 nnoremap <silent><leader>lr :call LanguageClient#textDocument_references()<CR>
 nnoremap <silent><leader>lh :call LanguageClient#textDocument_hover()<CR>
 nnoremap <silent><leader>lc :call LanguageClient_contextMenu()<CR>
@@ -195,7 +196,7 @@ nnoremap <silent><leader>fp :Files<cr>
 nnoremap <silent><leader>ff :BTags<cr>
 nnoremap <silent><leader>fm :Marks<cr>
 nnoremap <silent><leader>fc :Commands<cr>
-nnoremap <silent><leader>fg :Ag<space>
+nnoremap <leader>fg :Ag<space>
 nnoremap <silent><leader>f* :Ag <c-r><c-w><cr>
 
 " comment
