@@ -2,7 +2,6 @@
 " justfly <justfly.py@gmail.com>
 " enjoy!
 "
-
 call plug#begin('~/.config/nvim/plugged')
 " fzf
 Plug '/usr/local/opt/fzf'
@@ -25,13 +24,14 @@ Plug 'Raimondi/delimitMate'
 Plug 'luochen1990/rainbow'
 " comment
 Plug 'scrooloose/nerdcommenter'
-" show tralling whitespace
+" show and fix tralling whitespace
 Plug 'bronson/vim-trailing-whitespace'
 " language enhancement
 Plug 'cespare/vim-toml', { 'for': 'toml' }
-Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
 " colors
-Plug 'morhetz/gruvbox'
+Plug 'NLKNguyen/papercolor-theme'
+" pos navigator
+Plug 'imjustfly/vim-navigator'
 call plug#end()
 
 " leader key
@@ -43,11 +43,24 @@ let g:fzf_action = {
   \ 'ctrl-h': 'split',
   \ 'ctrl-v': 'vsplit' }
 let g:fzf_buffers_jump = 1
+let g:fzf_colors =
+\ { 'fg':      ['fg', 'Normal'],
+  \ 'bg':      ['bg', 'Normal'],
+  \ 'hl':      ['fg', 'Comment'],
+  \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+  \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
+  \ 'hl+':     ['fg', 'Statement'],
+  \ 'info':    ['fg', 'PreProc'],
+  \ 'border':  ['fg', 'Ignore'],
+  \ 'prompt':  ['fg', 'Conditional'],
+  \ 'pointer': ['fg', 'Exception'],
+  \ 'marker':  ['fg', 'Keyword'],
+  \ 'spinner': ['fg', 'Label'],
+  \ 'header':  ['fg', 'Comment'] }
 
 " language client
 let g:LanguageClient_serverCommands = {
-            \ 'go' : ['go-langserver', '-gocodecompletion', '-diagnostics', '-logfile=/tmp/go-langserver.log', "-lint-tool=golint"],
-            \ 'python': ['/Users/justfly/.pyenv/versions/3.6.5/bin/pyls'],
+            \ 'go' : ['bingo', '-disable-func-snippet'],
             \ 'c' : ['cquery', '--log-file=/tmp/cquery.log', '--init={"cacheDirectory":"/tmp/cquery/", "completion": {"filterAndSort": false}}'],
     \ }
 let g:LanguageClient_loggingFile = '/tmp/languageclient.log'
@@ -84,7 +97,7 @@ let g:lightline.inactive = {
     \           [ 'filename' ] ],
     \ 'right': [ [ 'lineinfo' ],
     \            [ 'percent' ] ] }
-let g:lightline.colorscheme = 'jellybeans'
+let g:lightline.colorscheme = 'PaperColor'
 
 "vim-gitgutter
 let g:gitgutter_override_sign_column_highlight = 1
@@ -106,15 +119,23 @@ let g:NERDCommentEmptyLines = 1
 let g:NERDTrimTrailingWhitespace = 1
 let g:NERDToggleCheckAllLines = 1
 
-" gruvbox
-let g:gruvbox_contrast_dark = 'hard'
+" PaperColor
+let g:PaperColor_Theme_Options = {
+  \   'theme': {
+  \     'default.light': {
+  \       'transparent_background': 1,
+  \       'allow_bold': 0,
+  \       'allow_italic': 1
+  \     }
+  \   }
+  \ }
 
 " basic config
 syntax on
 syntax enable
 set termguicolors
-set background=dark
-colorscheme gruvbox
+set background=light
+colorscheme PaperColor
 set ai
 set re=1
 set bs=2
@@ -179,17 +200,32 @@ nnoremap <leader>w6 6<c-w><c-w>
 nnoremap <leader>ws <c-w><c-w>
 nnoremap <silent><leader>wd :close<cr>
 
+" jump stack
+nnoremap <leader>em :NavMark<CR>
+nnoremap <leader>eb :NavBack<CR>
+nnoremap <leader>ef :NavForward<CR>
+
 " buffers
 nnoremap <silent><leader>bd :bd<cr>
 
 " languages
-nnoremap <silent><leader>ld :call LanguageClient#textDocument_definition()<CR>
+function! HandleDefinition(resp) abort
+    if len(a:resp['result']) == 0
+        return
+    endif
+    let l:loc = a:resp['result'][0]
+    execute 'edit' . ' ' . fnameescape(l:loc["uri"][7:])
+    let l:start = l:loc['range']['start']
+    call cursor(l:start['line']+1, l:start['character']+1)
+    NavMark
+endfunction
+nnoremap <silent><leader>ld :NavMark<CR>:call LanguageClient#textDocument_definition({}, "HandleDefinition")<CR>
 nnoremap <silent><leader>lr :call LanguageClient#textDocument_references()<CR>
 nnoremap <silent><leader>lh :call LanguageClient#textDocument_hover()<CR>
 nnoremap <silent><leader>lc :call LanguageClient_contextMenu()<CR>
 nnoremap <silent><leader>ls :LanguageClientStart<CR>
 
-" jumps
+" fzf
 nnoremap <silent><leader>fw :Windows<cr>
 nnoremap <silent><leader>fb :Buffers<cr>
 nnoremap <silent><leader>fp :Files<cr>
