@@ -70,6 +70,8 @@ cmp.setup({
             end,
             {"i", "s"}
         ),
+        ["<C-n>"] = cmp.mapping.select_next_item(),
+        ["<C-p>"] = cmp.mapping.select_prev_item(),
         ["<CR>"] = cmp.mapping.confirm({select = true})
     }
 })
@@ -90,23 +92,6 @@ require("telescope").setup({
         layout_strategy = "vertical",
     },
 })
-
--- toggleterm
-require("toggleterm").setup({
-    size = function(term)
-        if term.direction == "horizontal" then
-            return vim.o.lines * 0.3
-        elseif term.direction == "vertical" then
-            return vim.o.columns * 0.4
-        end
-    end,
-    open_mapping = [[<c-\>]]
-})
-function _G.set_terminal_keymaps()
-    local opts = {noremap = true}
-    vim.api.nvim_buf_set_keymap(0, "t", "<esc>", [[<C-\><C-n>]], opts)
-end
-vim.cmd("autocmd! TermOpen term://* lua set_terminal_keymaps()")
 
 -- spell check
 require('spellsitter').setup()
