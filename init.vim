@@ -36,7 +36,11 @@ set completeopt=menuone
 au FileType go setlocal noexpandtab
 
 " plugin and colors
-let g:jellybeans_overrides = {'background': {'guibg': '000000'}, 'SpellBad': {'guibg': '222222'}}
+let g:jellybeans_overrides = {
+            \ 'background': {'guibg': '000000'},
+            \ 'SpellBad': {'guibg': '222222'},
+            \ 'SpellCap': {'guibg': '222222'},
+            \}
 colorscheme jellybeans
 luafile ~/.config/nvim/conf.lua
 call ssh_clipboard#Enable()
