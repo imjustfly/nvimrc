@@ -5,14 +5,13 @@
 " plugins
 call plug#begin('~/.config/nvim/plugged')
 Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
-Plug 'autozimu/LanguageClient-neovim', { 'branch': 'next', 'do': 'bash install.sh' }
+Plug 'neovim/nvim-lspconfig'
 Plug 'ervandew/supertab'  " use tab to select candidate words
 Plug 'Shougo/echodoc.vim'  " echo func doc in status line
 Plug 'itchyny/lightline.vim'
 Plug 'Raimondi/delimitMate'  " brackets auto close
 Plug 'scrooloose/nerdcommenter'
 Plug 'bronson/vim-trailing-whitespace'
-Plug 'imjustfly/vim-navigator'
 Plug 'morhetz/gruvbox'
 call plug#end()
 
@@ -23,16 +22,25 @@ let g:Lf_ShortcutF = "<C-p>"
 let g:Lf_IgnoreCurrentBufferName = 1
 let g:Lf_WindowPosition = 'popup'
 let g:Lf_PreviewInPopup = 1
-let g:LanguageClient_serverCommands = {'go' : ['gopls'], 'cpp' : ['clangd']}
-let g:LanguageClient_loggingFile = '/tmp/lcn.log'
-let g:LanguageClient_useVirtualText = "No"
-let g:LanguageClient_showCompletionDocs = 0
 let g:echodoc_enable_at_startup = 1
-let g:SuperTabDefaultCompletionType = "<c-x><c-o>"
 let g:lightline = {'colorscheme': 'gruvbox'}
 let g:NERDSpaceDelims = 1
+let g:SuperTabDefaultCompletionType = '<c-n>'
 let g:gruvbox_contrast_dark = 'hard'
 au FileType python let b:delimitMate_nesting_quotes = ['"', "'"]
+lua << EOF
+local servers = { 'gopls', 'clangd' }
+local nvim_lsp = require('lspconfig')
+local on_attach = function(client, bufnr)
+    vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
+    vim.api.nvim_set_var('SuperTabDefaultCompletionType','<c-x><c-o>')
+end
+for _, lsp in ipairs(servers) do
+    nvim_lsp[lsp].setup {
+        on_attach = on_attach,
+    }
+end
+EOF
 
 " vim settings
 syntax on
@@ -50,7 +58,7 @@ set splitbelow splitright
 set ignorecase smartcase  " ignore case for searching
 set expandtab smarttab shiftwidth=4 tabstop=4
 set foldmethod=syntax foldnestmax=5 foldlevel=5
-set completeopt=noinsert,menuone,noselect
+set completeopt=noinsert,menuone,noselect  "complete like IDE
 au FileType python setlocal foldmethod=indent
 au FileType go setlocal noexpandtab
 au FileType cpp setlocal shiftwidth=2 tabstop=2
@@ -59,17 +67,12 @@ au FileType javascript setlocal shiftwidth=2 tabstop=2
 " key bindings
 map <silent><C-e> <ESC>
 nnoremap <silent><C-e>m :NavMark<CR>
-nnoremap <silent><C-e>j :NavBack<CR>
-nnoremap <silent><C-e>k :NavForward<CR>
-function! LCNDefinition() abort
-    NavMark
-    call LanguageClient_runSync("LanguageClient#textDocument_definition", {'handle': v:true})
-    NavMark
-endfunction
-nnoremap <silent><leader>d :call LCNDefinition()<CR>
-nnoremap <silent><leader>r :call LanguageClient#textDocument_references()<CR>
-nnoremap <silent><leader>f :call LanguageClient#textDocument_hover()<CR>
-nnoremap <silent><leader>s :call LanguageClient#textDocument_implementation()<CR>
+nnoremap <silent><C-e>k :NavBack<CR>
+nnoremap <silent><C-e>j :NavForward<CR>
+nnoremap <silent><leader>f <cmd>lua vim.lsp.buf.hover()<CR>
+nnoremap <silent><leader>r <cmd>lua vim.lsp.buf.references()<CR>
+nnoremap <silent><leader>d <cmd>lua vim.lsp.buf.definition()<CR>
+nnoremap <silent><leader>s <cmd>lua vim.lsp.buf.implementation()<CR>
 noremap <silent><C-j> :<C-U><C-R>=printf("Leaderf buffer %s", "")<CR><CR>
 noremap <silent><C-k> :<C-U><C-R>=printf("Leaderf bufTag %s", "")<CR><CR>
 noremap <silent><C-l> :<C-U><C-R>=printf("Leaderf line %s", "")<CR><CR>
