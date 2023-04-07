@@ -34,15 +34,15 @@ au FileType python setlocal shiftwidth=4 tabstop=4
 luafile ~/.config/nvim/conf.lua
 
 " key bindings
-nnoremap <silent><leader><ESC> :cclose<CR>
 nnoremap <silent><leader>f :lua vim.lsp.buf.hover()<CR>
-nnoremap <silent><leader>r <cmd>Telescope lsp_references<CR>
 nnoremap <silent><leader>d <cmd>Telescope lsp_definitions<CR>
 nnoremap <silent><leader>s <cmd>Telescope lsp_implementations<CR>
+nnoremap <silent><leader>r <cmd>Telescope lsp_references<CR>
 nnoremap <silent><leader>t <cmd>Telescope diagnostics bufnr=0<CR>
 nnoremap <silent><leader>a :lua vim.lsp.buf.formatting()<CR>
-nnoremap <silent><C-p> <cmd>Telescope find_files<cr>
-nnoremap <silent><C-j> <cmd>Telescope buffers<cr>
+nnoremap <silent><C-p> <cmd>Telescope git_files<cr>
 nnoremap <silent><C-l> <cmd>Telescope current_buffer_fuzzy_find<cr>
 nnoremap <silent><C-g> <cmd>Telescope live_grep<cr>
+nnoremap <silent><C-j> <cmd>bnext<cr>
+nnoremap <silent><C-k> <cmd>bprev<cr>
 xnoremap gf <cmd>Telescope grep_string<cr>

@@ -30,7 +30,11 @@ vim.wo.foldexpr = 'nvim_treesitter#foldexpr()'
 
 -- lualine
 require('lualine').setup({
-  options = { section_separators = '', component_separators = '' },
+  options = {section_separators = '', component_separators = '' },
+  sections = {
+    lualine_c = {{'filename', path = 1}},
+    lualine_x = {{'buffers'}},
+  }
 })
 
 -- pears
@@ -68,7 +72,7 @@ cmp.setup({
 -- telescope
 require('telescope').setup({
   defaults = {
-    layout_strategy = 'vertical',
+    layout_strategy = 'bottom_pane',
     layout_config = {
       vertical = { width = 0.5, height = 0.5 },
     },
