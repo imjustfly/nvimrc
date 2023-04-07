@@ -29,7 +29,7 @@ Plug 'bronson/vim-trailing-whitespace'
 " language enhancement
 Plug 'cespare/vim-toml', { 'for': 'toml' }
 " colors
-Plug 'NLKNguyen/papercolor-theme'
+Plug 'srcery-colors/srcery-vim'
 " pos navigator
 Plug 'imjustfly/vim-navigator'
 call plug#end()
@@ -60,10 +60,11 @@ let g:fzf_colors =
 
 " language client
 let g:LanguageClient_serverCommands = {
-            \ 'go' : ['bingo', '-disable-func-snippet'],
+            \ 'go' : ['bingo', '-disable-func-snippet', '-diagnostics-style', 'onsave'],
             \ 'c' : ['cquery', '--log-file=/tmp/cquery.log', '--init={"cacheDirectory":"/tmp/cquery/", "completion": {"filterAndSort": false}}'],
     \ }
 let g:LanguageClient_loggingFile = '/tmp/languageclient.log'
+let g:LanguageClient_hoverPreview = 'Always'
 au BufWritePre *.h,*.c,*.go,*.py :call LanguageClient_textDocument_formatting()
 
 " ncm2
@@ -97,7 +98,7 @@ let g:lightline.inactive = {
     \           [ 'filename' ] ],
     \ 'right': [ [ 'lineinfo' ],
     \            [ 'percent' ] ] }
-let g:lightline.colorscheme = 'PaperColor'
+let g:lightline.colorscheme = 'srcery'
 
 "vim-gitgutter
 let g:gitgutter_override_sign_column_highlight = 1
@@ -119,23 +120,18 @@ let g:NERDCommentEmptyLines = 1
 let g:NERDTrimTrailingWhitespace = 1
 let g:NERDToggleCheckAllLines = 1
 
-" PaperColor
-let g:PaperColor_Theme_Options = {
-  \   'theme': {
-  \     'default.light': {
-  \       'transparent_background': 1,
-  \       'allow_bold': 0,
-  \       'allow_italic': 1
-  \     }
-  \   }
-  \ }
+let g:srcery_italic = 1
+let g:srcery_transparent_background = 1
+let g:srcery_inverse_matches = 1
+let g:srcery_inverse_match_paren = 1
+
 
 " basic config
 syntax on
 syntax enable
 set termguicolors
-set background=light
-colorscheme PaperColor
+set background=dark
+colorscheme srcery
 set ai
 set re=1
 set bs=2
