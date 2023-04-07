@@ -37,7 +37,6 @@ let g:lightline = {'colorscheme': 'gruvbox'}
 let g:gitgutter_override_sign_column_highlight = 1
 let g:gitgutter_sign_modified_removed = '>'
 let g:NERDSpaceDelims = 1
-let g:NERDDefaultAlign = 'left'
 let g:gruvbox_contrast_dark = 'hard'
 au FileType python let b:delimitMate_nesting_quotes = ['"', "'"]
 autocmd BufEnter * call ncm2#enable_for_buffer()
