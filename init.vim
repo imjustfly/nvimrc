@@ -6,9 +6,6 @@
 call plug#begin('~/.config/nvim/plugged')
 Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
 Plug 'autozimu/LanguageClient-neovim', { 'branch': 'next', 'do': 'bash install.sh' }
-Plug 'roxma/nvim-yarp'  "needed by ncm2
-Plug 'ncm2/ncm2'
-Plug 'ncm2/ncm2-bufword'
 Plug 'ervandew/supertab'  " use tab to select candidate words
 Plug 'Shougo/echodoc.vim'  " echo func doc in status line
 Plug 'itchyny/lightline.vim'
@@ -31,13 +28,11 @@ let g:LanguageClient_loggingFile = '/tmp/lcn.log'
 let g:LanguageClient_useVirtualText = "No"
 let g:LanguageClient_showCompletionDocs = 0
 let g:echodoc_enable_at_startup = 1
-let g:SuperTabDefaultCompletionType = "<c-n>"
+let g:SuperTabDefaultCompletionType = "<c-x><c-o>"
 let g:lightline = {'colorscheme': 'gruvbox'}
 let g:NERDSpaceDelims = 1
 let g:gruvbox_contrast_dark = 'hard'
 au FileType python let b:delimitMate_nesting_quotes = ['"', "'"]
-autocmd BufEnter * call ncm2#enable_for_buffer()
-set completeopt=noinsert,menuone,noselect  " :help Ncm2PopupOpen for more
 
 " vim settings
 syntax on
@@ -55,6 +50,7 @@ set splitbelow splitright
 set ignorecase smartcase  " ignore case for searching
 set expandtab smarttab shiftwidth=4 tabstop=4
 set foldmethod=syntax foldnestmax=5 foldlevel=5
+set completeopt=noinsert,menuone,noselect
 au FileType python setlocal foldmethod=indent
 au FileType go setlocal noexpandtab
 au FileType cpp setlocal shiftwidth=2 tabstop=2
