@@ -6,24 +6,24 @@ let mapleader=','
 
 " plugins
 call plug#begin('~/.config/nvim/plugged')
-Plug 'neovim/nvim-lspconfig'  " buildin language server
+Plug 'neovim/nvim-lspconfig'  " builtin language server
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'hrsh7th/cmp-nvim-lsp'
 Plug 'hrsh7th/cmp-buffer'
 Plug 'hrsh7th/nvim-cmp'
 Plug 'nvim-lualine/lualine.nvim'
 Plug 'steelsojka/pears.nvim'  " brackets auto pair
-Plug 'nvim-lua/plenary.nvim'  " depended by telesope
+Plug 'nvim-lua/plenary.nvim'  " depended by telescope
 Plug 'nvim-telescope/telescope.nvim'  " fuzzy finder
 Plug 'nanotech/jellybeans.vim'
 call plug#end()
 
 " vim settings
 set termguicolors
-set signcolumn=number  " use number comlumn to show sign
+set signcolumn=number  " use number column to show sign
 set relativenumber number
 set fillchars+=vert:\|  " delimiter
-set list listchars+=trail:◦
+set list listchars=tab:>-,eol:↲,trail:◦
 set noshowmode  " no need, we already have lightline
 set splitbelow splitright
 set ignorecase smartcase  " ignore case for searching
