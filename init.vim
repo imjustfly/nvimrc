@@ -17,13 +17,14 @@ Plug 'nvim-telescope/telescope.nvim'  " fuzzy finder
 Plug 'nvim-lua/plenary.nvim'  " depended by telescope
 Plug 'akinsho/toggleterm.nvim'  " better terminal
 Plug 'famiu/bufdelete.nvim' " better buffer deletion
-Plug 'kvrohit/rasmus.nvim'
+Plug 'imjustfly/rasmus.nvim'
 Plug 'folke/trouble.nvim'
+Plug 'f-person/git-blame.nvim'
 call plug#end()
 
 " vim settings
 set mouse=
-set termguicolors
+" set termguicolors
 set nowrap
 set spell spl=en,cjk
 set signcolumn=number  " use number column to show sign
@@ -41,6 +42,7 @@ au FileType go setlocal noexpandtab
 let g:rasmus_transparent = 1
 let g:rasmus_bold_functions = 1
 let g:rasmus_bold_keywords = 1
+let g:gitblame_enabled = 0
 colorscheme rasmus
 luafile ~/.config/nvim/conf.lua
 call ssh_clipboard#Enable()
@@ -52,6 +54,7 @@ nnoremap <silent><leader>s <cmd>Telescope lsp_implementations<cr>
 nnoremap <silent><leader>r <cmd>TroubleToggle lsp_references<cr>
 nnoremap <silent><leader>t <cmd>TroubleToggle document_diagnostics<cr>
 nnoremap <silent><leader>a :lua vim.lsp.buf.formatting()<cr>
+nnoremap <silent><leader>b <cmd>GitBlameToggle<cr>
 nnoremap <silent><C-p> <cmd>Telescope git_files<cr>
 nnoremap <silent><C-j> <cmd>Telescope buffers<cr>
 nnoremap <silent><C-y> <cmd>Telescope current_buffer_fuzzy_find<cr>
