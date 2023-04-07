@@ -45,7 +45,7 @@ let g:fzf_buffers_jump = 1
 
 " language client
 let g:LanguageClient_serverCommands = {
-            \ 'go' : ['go-langserver', '-gocodecompletion', '-diagnostics'],
+            \ 'go' : ['go-langserver', '-gocodecompletion', '-diagnostics', '-logfile=/tmp/go-langserver.log', "-lint-tool=golint"],
             \ 'python': ['/Users/justfly/.pyenv/versions/3.6.5/bin/pyls'],
             \ 'c' : ['cquery', '--log-file=/tmp/cquery.log', '--init={"cacheDirectory":"/tmp/cquery/", "completion": {"filterAndSort": false}}'],
     \ }
@@ -137,6 +137,7 @@ filetype plugin indent on
 au WinNew * set cc=
 au FileType c set cc=80
 au BufRead,BufNewFile *.h,*.c set filetype=c
+au BufNewFile,BufRead go.mod if getline(1) =~ '^module.*' | set filetype=gomod |  endif
 au FileType python setlocal et sta sw=4 sts=4
 au FileType python setlocal foldmethod=indent
 au FileType python set cc=79
