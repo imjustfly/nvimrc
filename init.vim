@@ -50,13 +50,16 @@ noremap go :<C-U>Leaderf! rg --recall<CR>
 
 " language client
 let g:LanguageClient_serverCommands = {
-            \ 'go' : ['bingo', '-disable-func-snippet', '-diagnostics-style', 'onsave'],
+            \ 'go' : ['gopls'],
             \ 'python' : ['pyls'],
-            \ 'c' : ['cquery', '--log-file=/tmp/cquery.log', '--init={"cacheDirectory":"/tmp/cquery/", "completion": {"filterAndSort": false}}'],
+            \ 'cpp' : ['clangd'],
     \ }
 let g:LanguageClient_loggingFile = '/tmp/languageclient.log'
-let g:LanguageClient_hoverPreview = 'Always'
-au BufWritePre *.h,*.c,*.go,*.py :call LanguageClient_textDocument_formatting()
+let g:LanguageClient_hoverPreview = 'Auto'
+let g:LanguageClient_useFloatingHover = 0
+let g:LanguageClient_useVirtualText = "No"
+let g:LanguageClient_showCompletionDocs = 0
+" au BufWritePre *.h,*.c,*.go,*.py :call LanguageClient_textDocument_formatting()
 
 " ncm2
 autocmd BufEnter * call ncm2#enable_for_buffer()
@@ -152,27 +155,34 @@ set ss=0
 
 " language related configs
 filetype plugin indent on
-au BufRead,BufNewFile *.h,*.c set filetype=c
 au BufNewFile,BufRead go.mod if getline(1) =~ '^module.*' | set filetype=gomod |  endif
 au FileType python setlocal et sta sw=4 sts=4
 au FileType python setlocal foldmethod=indent
 au FileType markdown set nowrap
 au FileType go setlocal noexpandtab
 au FileType vue set shiftwidth=2 tabstop=2
+au FileType cpp set shiftwidth=2 tabstop=2
 au FileType javascript set shiftwidth=2 tabstop=2
 au FileType qf nnoremap <buffer> <Esc> :q<Enter>
 au QuickFixCmdPost *grep* cwindow
 
 " relative line number
-set relativenumber number
-au FocusLost * :set norelativenumber number
-au FocusGained * :set relativenumber
-autocmd InsertEnter * :set norelativenumber number
-autocmd InsertLeave * :set relativenumber
+set number
+function! ToggleRelativeNumber() abort
+    let l:on = &relativenumber
+    if l:on
+        set norelativenumber
+    else
+        set relativenumber
+    endif
+endfunction
+
+nnoremap <silent><C-l> :call ToggleRelativeNumber()<cr>
 
 " global key bindings
 "
 " windows
+nnoremap <leader>w<ESC> <c-w>z
 nnoremap <leader>wj <c-w>j
 nnoremap <leader>wk <c-w>k
 nnoremap <leader>wh <c-w>h
@@ -189,28 +199,36 @@ nnoremap <leader>wL <c-w>r
 nnoremap <silent><leader>wd :close<cr>
 
 " jump stack
-nnoremap <leader>em :NavMark<CR>
-nnoremap <leader>eb :NavBack<CR>
-nnoremap <leader>ef :NavForward<CR>
+nnoremap <silent><leader>em :NavMark<CR>
+nnoremap <silent><leader>eb :NavBack<CR>
+nnoremap <silent><leader>ef :NavForward<CR>
 
 " buffers
 nnoremap <silent><leader>bd :bd<cr>
 
 " languages
-function! HandleDefinition(resp) abort
-    if len(a:resp['result']) == 0
-        return
-    endif
-    let l:loc = a:resp['result'][0]
-    execute 'edit' . ' ' . fnameescape(l:loc["uri"][7:])
-    let l:start = l:loc['range']['start']
-    call cursor(l:start['line']+1, l:start['character']+1)
+function! LCNDefinition() abort
+    NavMark
+    call LanguageClient_runSync("LanguageClient#textDocument_definition", {'handle': v:true})
     NavMark
 endfunction
-nnoremap <silent><leader>ld :NavMark<CR>:call LanguageClient#textDocument_definition({}, "HandleDefinition")<CR>
+function! LCNHover() abort
+    if g:LanguageClient_useFloatingHover
+        call LanguageClient#textDocument_hover()
+    else
+        call LanguageClient_runSync("LanguageClient#textDocument_hover", {'handle': v:true})
+        wincmd p
+        if getwinvar(win_id2win(win_getid()), "&pvw")
+            setlocal wrap
+            nnoremap <silent><buffer><ESC> :q<CR>
+        endif
+    endif
+endfunction
+nnoremap <silent><leader>ld :call LCNDefinition()<CR>
 nnoremap <silent><leader>lr :call LanguageClient#textDocument_references()<CR>
-nnoremap <silent><leader>lh :call LanguageClient#textDocument_hover()<CR>
+nnoremap <silent><leader>lh :call LCNHover()<CR>
 nnoremap <silent><leader>lc :call LanguageClient_contextMenu()<CR>
+nnoremap <silent><leader>li :call LanguageClient#textDocument_implementation()<CR>
 nnoremap <silent><leader>ls :LanguageClientStart<CR>
 
 " leaderf
