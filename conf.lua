@@ -35,7 +35,7 @@ require("lualine").setup({
         lualine_c = {{"buffers", buffers_color = {active = 'white'}}},
         lualine_x = {"diff", "diagnostics", "filetype"},
     },
-    options = {section_separators = "", component_separators = ""},
+    options = {section_separators = "", component_separators = "", globalstatus = true},
 })
 
 -- pears

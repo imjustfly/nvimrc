@@ -17,6 +17,7 @@ Plug 'nvim-telescope/telescope.nvim'  " fuzzy finder
 Plug 'nvim-lua/plenary.nvim'  " depended by telescope
 Plug 'akinsho/toggleterm.nvim'  " better terminal
 Plug 'lewis6991/spellsitter.nvim' " better spell check
+Plug 'famiu/bufdelete.nvim' " better buffer deletion
 Plug 'kvrohit/rasmus.nvim'
 call plug#end()
 
@@ -56,5 +57,5 @@ nnoremap <silent><C-g> <cmd>Telescope live_grep<cr>
 nnoremap <silent><C-k> <cmd>Telescope treesitter<cr>
 nnoremap <silent><C-h> <cmd>bp<cr>
 nnoremap <silent><C-l> <cmd>bn<cr>
-nnoremap <silent><C-x> <cmd>bd<cr>
+nnoremap <silent><C-x> <cmd>Bdelete<cr>
 xnoremap gf <cmd>Telescope grep_string<cr>
