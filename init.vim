@@ -70,9 +70,8 @@ nnoremap <silent><leader>f :lua vim.lsp.buf.hover()<CR>
 nnoremap <silent><leader>r :lua vim.lsp.buf.references()<CR>
 nnoremap <silent><leader>d :lua vim.lsp.buf.definition()<CR>
 nnoremap <silent><leader>s :lua vim.lsp.buf.implementation()<CR>
-noremap <silent><C-j> :<C-U><C-R>=printf("Leaderf buffer %s", "")<CR><CR>
-noremap <silent><C-k> :<C-U><C-R>=printf("Leaderf bufTag %s", "")<CR><CR>
-noremap <silent><C-l> :<C-U><C-R>=printf("Leaderf line %s", "")<CR><CR>
+nnoremap <silent><C-j> :<C-U><C-R>=printf("Leaderf buffer %s", "")<CR><CR>
+nnoremap <silent><C-k> :<C-U><C-R>=printf("Leaderf bufTag %s", "")<CR><CR>
+nnoremap <silent><C-l> :<C-U><C-R>=printf("Leaderf line %s", "")<CR><CR>
 xnoremap gf :<C-U><C-R>=printf("Leaderf! rg -F -e %s ", leaderf#Rg#visual())<CR>
-noremap go :<C-U>Leaderf! rg --recall<CR>
 au FileType qf wincmd J | nnoremap <buffer> <Esc> :q<Enter>
