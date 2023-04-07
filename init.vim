@@ -12,7 +12,6 @@ Plug 'ncm2/ncm2-bufword'
 Plug 'ervandew/supertab'  " use tab to select candidate words
 Plug 'Shougo/echodoc.vim'  " echo func doc in status line
 Plug 'itchyny/lightline.vim'
-Plug 'airblade/vim-gitgutter'  " git in sign clolumn
 Plug 'Raimondi/delimitMate'  " brackets auto close
 Plug 'scrooloose/nerdcommenter'
 Plug 'bronson/vim-trailing-whitespace'
@@ -34,8 +33,6 @@ let g:LanguageClient_showCompletionDocs = 0
 let g:echodoc_enable_at_startup = 1
 let g:SuperTabDefaultCompletionType = "<c-n>"
 let g:lightline = {'colorscheme': 'gruvbox'}
-let g:gitgutter_override_sign_column_highlight = 1
-let g:gitgutter_sign_modified_removed = '>'
 let g:NERDSpaceDelims = 1
 let g:gruvbox_contrast_dark = 'hard'
 au FileType python let b:delimitMate_nesting_quotes = ['"', "'"]
@@ -48,7 +45,7 @@ syntax enable
 filetype plugin indent on
 colorscheme gruvbox
 set termguicolors background=dark
-set signcolumn=yes  " prevent movement when showing sign
+set signcolumn=number  " prevent movement when showing sign
 set relativenumber number
 set fillchars+=vert:\|
 set list listchars=tab:▶‧,space:‧,eol:↵,nbsp:×
