@@ -22,6 +22,8 @@ Plug 'airblade/vim-gitgutter'
 " brackets
 Plug 'Raimondi/delimitMate'
 Plug 'luochen1990/rainbow'
+" comment
+Plug 'scrooloose/nerdcommenter'
 " show tralling whitespace
 Plug 'bronson/vim-trailing-whitespace'
 " language enhancement
@@ -46,6 +48,7 @@ let g:LanguageClient_serverCommands = {
             \ 'python': ['/Users/justfly/.pyenv/versions/3.6.5/bin/pyls'],
             \ 'c' : ['cquery', '--log-file=/tmp/cquery.log', '--init={"cacheDirectory":"/tmp/cquery/", "completion": {"filterAndSort": false}}'],
     \ }
+let g:LanguageClient_loggingFile = '/tmp/languageclient.log'
 au BufWritePre *.h,*.c,*.go,*.py :call LanguageClient_textDocument_formatting()
 
 " ncm2
@@ -86,6 +89,13 @@ au FileType markdown let b:delimitMate_nesting_quotes = ["`"]
 
 " rainbow
 let g:rainbow_active = 1
+
+" nerdcommenter
+let g:NERDSpaceDelims = 1
+let g:NERDDefaultAlign = 'left'
+let g:NERDCommentEmptyLines = 1
+let g:NERDTrimTrailingWhitespace = 1
+let g:NERDToggleCheckAllLines = 1
 
 " basic config
 syntax on
@@ -155,6 +165,7 @@ nnoremap <silent><leader>bd :bd<cr>
 nnoremap <silent><leader>ld :call LanguageClient#textDocument_definition()<CR>
 nnoremap <silent><leader>lr :call LanguageClient#textDocument_references()<CR>
 nnoremap <silent><leader>lh :call LanguageClient#textDocument_hover()<CR>
+nnoremap <silent><leader>ls :LanguageClientStart<CR>
 
 " jumps
 nnoremap <silent><leader>fw :Windows<cr>
@@ -171,6 +182,9 @@ nnoremap <silent><leader>gs :Gstatus<cr>
 nnoremap <silent><leader>gc :Gcommit<cr>
 nnoremap <silent><leader>gpl :Gpull<cr>
 nnoremap <silent><leader>gps :Gpush<cr>:copen<cr>
+
+" comment
+imap <C-c> <plug>NERDCommenterInsert
 
 " vim
 nnoremap <silent><leader>vq :qall<cr>
