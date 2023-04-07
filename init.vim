@@ -45,34 +45,22 @@ set completeopt=noinsert,menuone,noselect  " :help Ncm2PopupOpen for more
 " vim settings
 syntax on
 syntax enable
-colorscheme gruvbox
-set termguicolors
-set background=dark
-set noshowmode  " no need, we already have lightline
-set fileencodings=utf-8
-set foldmethod=syntax
-set foldnestmax=5
-set foldlevel=5
-set hidden  " allow hidden buffer being unsaved
-set splitbelow
-set splitright
-set signcolumn=yes
-set expandtab
-set tabstop=4
-set smarttab
-set shiftwidth=4
-set switchbuf=useopen,usetab
-set list
-set listchars=tab:▶‧,space:‧,eol:↵,nbsp:×
-set fillchars+=vert:\|
-set relativenumber number
-
 filetype plugin indent on
-au FileType python setlocal sta foldmethod=indent
+colorscheme gruvbox
+set termguicolors background=dark
+set signcolumn=yes  " prevent movement when showing sign
+set relativenumber number
+set fillchars+=vert:\|
+set list listchars=tab:▶‧,space:‧,eol:↵,nbsp:×
+set hidden  " allow hidden buffer being unsaved
+set noshowmode  " no need, we already have lightline
+set foldmethod=syntax foldnestmax=5 foldlevel=5
+set splitbelow splitright
+set expandtab smarttab shiftwidth=4 tabstop=4
+au FileType python setlocal foldmethod=indent
 au FileType go setlocal noexpandtab
 au FileType cpp setlocal shiftwidth=2 tabstop=2
 au FileType javascript setlocal shiftwidth=2 tabstop=2
-au FileType qf nnoremap <buffer> <Esc> :q<Enter>
 
 " key bindings
 map <silent><C-e> <ESC>
@@ -93,3 +81,4 @@ noremap <silent><C-k> :<C-U><C-R>=printf("Leaderf bufTag %s", "")<CR><CR>
 noremap <silent><C-l> :<C-U><C-R>=printf("Leaderf line %s", "")<CR><CR>
 xnoremap gf :<C-U><C-R>=printf("Leaderf! rg -F -e %s ", leaderf#Rg#visual())<CR>
 noremap go :<C-U>Leaderf! rg --recall<CR>
+au FileType qf nnoremap <buffer> <Esc> :q<Enter>
