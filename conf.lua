@@ -32,8 +32,7 @@ vim.wo.foldexpr = 'nvim_treesitter#foldexpr()'
 require('lualine').setup({
   options = {section_separators = '', component_separators = '' },
   sections = {
-    lualine_c = {{'buffers'}},
-    lualine_x = {{'filename', path = 1}, 'fileformat', 'filetype'},
+    lualine_c = {{'filename', path = 1}},
   }
 })
 
@@ -72,7 +71,7 @@ cmp.setup({
 -- telescope
 require('telescope').setup({
   defaults = {
-    layout_strategy = 'bottom_pane',
+    layout_strategy = 'vertical',
     layout_config = {
       vertical = { width = 0.5, height = 0.5 },
     },

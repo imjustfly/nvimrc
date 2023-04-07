@@ -43,6 +43,6 @@ nnoremap <silent><leader>a :lua vim.lsp.buf.formatting()<CR>
 nnoremap <silent><C-p> <cmd>Telescope git_files<cr>
 nnoremap <silent><C-l> <cmd>Telescope current_buffer_fuzzy_find<cr>
 nnoremap <silent><C-g> <cmd>Telescope live_grep<cr>
-nnoremap <silent><C-j> <cmd>bnext<cr>
-nnoremap <silent><C-k> <cmd>bprev<cr>
+nnoremap <silent><C-k> <cmd>Telescope treesitter<cr>
+nnoremap <silent><C-j> <cmd>Telescope buffers<cr>
 xnoremap gf <cmd>Telescope grep_string<cr>
