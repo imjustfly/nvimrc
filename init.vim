@@ -15,12 +15,15 @@ Plug 'nvim-lualine/lualine.nvim'
 Plug 'steelsojka/pears.nvim'  " brackets auto pair
 Plug 'nvim-lua/plenary.nvim'  " depended by telesope
 Plug 'nvim-telescope/telescope.nvim'  " fuzzy finder
+Plug 'nanotech/jellybeans.vim'
 call plug#end()
 
 " vim settings
+set termguicolors
 set signcolumn=number  " use number comlumn to show sign
 set relativenumber number
 set fillchars+=vert:\|  " delimiter
+set list listchars+=trail:◦
 set noshowmode  " no need, we already have lightline
 set splitbelow splitright
 set ignorecase smartcase  " ignore case for searching
@@ -28,10 +31,13 @@ set expandtab smarttab shiftwidth=2 tabstop=2
 set foldnestmax=5 foldlevel=5
 set completeopt=menuone
 au FileType go setlocal noexpandtab
-au FileType python setlocal shiftwidth=4 tabstop=4
+au FileType cpp,python setlocal shiftwidth=4 tabstop=4
 
-" plugin settings
+" plugin and colors
+let g:jellybeans_overrides = { 'background': { 'guibg': '000000' } }
+colorscheme jellybeans
 luafile ~/.config/nvim/conf.lua
+call ssh_clipboard#Enable()
 
 " key bindings
 nnoremap <silent><leader>f :lua vim.lsp.buf.hover()<CR>
