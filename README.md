@@ -1,19 +1,19 @@
 # my simpe vimrc
 
-My simple neovim configuration. Got some awesome configure items from project [k-vim](https://github.com/wklken/k-vim).
+A really compact (80 lines) neovim configuration.
 
 ## Installation
 
-Clone this repo
+**Clone this repo**
 
 ```shell
 git clone https://github.com/imjustfly/nvimrc.git ~/.config/nvim
 ```
 
-Install plugins
+**Install plugins**
 
 ```
 :PlugInstall
 ```
 
-enjoy!
+Enjoy!
