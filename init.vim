@@ -32,10 +32,10 @@ Plug 'imjustfly/vim-navigator'
 call plug#end()
 
 " leader key
-let mapleader=' '
+let mapleader=','
 
 " leaderf
-let g:Lf_ShortcutF = "<leader>ff"
+let g:Lf_ShortcutF = "<C-p>"
 let g:Lf_HideHelp = 1
 let g:Lf_UseCache = 0
 let g:Lf_IgnoreCurrentBufferName = 1
@@ -59,7 +59,6 @@ let g:LanguageClient_hoverPreview = 'Auto'
 let g:LanguageClient_useFloatingHover = 0
 let g:LanguageClient_useVirtualText = "No"
 let g:LanguageClient_showCompletionDocs = 0
-" au BufWritePre *.h,*.c,*.go,*.py :call LanguageClient_textDocument_formatting()
 
 " ncm2
 autocmd BufEnter * call ncm2#enable_for_buffer()
@@ -104,9 +103,6 @@ let g:gitgutter_sign_column_always = 0
 " DelimitMate
 au FileType python let b:delimitMate_nesting_quotes = ['"', "'"]
 au FileType markdown let b:delimitMate_nesting_quotes = ["`"]
-
-" rainbow
-let g:rainbow_active = 1
 
 " nerdcommenter
 let g:NERDSpaceDelims = 1
@@ -176,32 +172,15 @@ function! ToggleRelativeNumber() abort
         set relativenumber
     endif
 endfunction
-
 nnoremap <silent><C-l> :call ToggleRelativeNumber()<cr>
 
 " global key bindings
 "
-" windows
-nnoremap <leader>w<ESC> <c-w>z
-nnoremap <leader>wj <c-w>j
-nnoremap <leader>wk <c-w>k
-nnoremap <leader>wh <c-w>h
-nnoremap <leader>wl <c-w>l
-nnoremap <leader>w1 1<c-w><c-w>
-nnoremap <leader>w2 2<c-w><c-w>
-nnoremap <leader>w3 3<c-w><c-w>
-nnoremap <leader>w4 4<c-w><c-w>
-nnoremap <leader>w5 5<c-w><c-w>
-nnoremap <leader>w6 6<c-w><c-w>
-nnoremap <leader>ws <c-w><c-w>
-nnoremap <leader>wH <c-w>R
-nnoremap <leader>wL <c-w>r
-nnoremap <silent><leader>wd :close<cr>
-
 " jump stack
-nnoremap <silent><leader>em :NavMark<CR>
-nnoremap <silent><leader>eb :NavBack<CR>
-nnoremap <silent><leader>ef :NavForward<CR>
+map <silent><C-e> <ESC>
+nnoremap <silent><C-e>m :NavMark<CR>
+nnoremap <silent><C-e>b :NavBack<CR>
+nnoremap <silent><C-e>f :NavForward<CR>
 
 " buffers
 nnoremap <silent><leader>bd :bd<cr>
@@ -224,23 +203,15 @@ function! LCNHover() abort
         endif
     endif
 endfunction
-nnoremap <silent><leader>ld :call LCNDefinition()<CR>
-nnoremap <silent><leader>lr :call LanguageClient#textDocument_references()<CR>
-nnoremap <silent><leader>lh :call LCNHover()<CR>
-nnoremap <silent><leader>lc :call LanguageClient_contextMenu()<CR>
-nnoremap <silent><leader>li :call LanguageClient#textDocument_implementation()<CR>
-nnoremap <silent><leader>ls :LanguageClientStart<CR>
+nnoremap <silent><leader>d :call LCNDefinition()<CR>
+nnoremap <silent><leader>r :call LanguageClient#textDocument_references()<CR>
+nnoremap <silent><leader>f :call LCNHover()<CR>
+nnoremap <silent><leader>s :call LanguageClient#textDocument_implementation()<CR>
 
 " leaderf
-noremap <silent><leader>fb :<C-U><C-R>=printf("Leaderf buffer %s", "")<CR><CR>
-noremap <silent><leader>fm :<C-U><C-R>=printf("Leaderf mru %s", "")<CR><CR>
-noremap <silent><leader>ft :<C-U><C-R>=printf("Leaderf bufTag %s", "")<CR><CR>
-noremap <silent><leader>fl :<C-U><C-R>=printf("Leaderf line %s", "")<CR><CR>
+noremap <silent><C-j> :<C-U><C-R>=printf("Leaderf buffer %s", "")<CR><CR>
+noremap <silent><C-k> :<C-U><C-R>=printf("Leaderf bufTag %s", "")<CR><CR>
+noremap <silent><C-l> :<C-U><C-R>=printf("Leaderf line %s", "")<CR><CR>
 
 " comment
 imap <C-c> <plug>NERDCommenterInsert
-
-" vim
-nnoremap <silent><leader>vq :qall<cr>
-nnoremap <silent><leader>vm :messages<cr>
-nnoremap <leader>vh :help<space>
