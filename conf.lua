@@ -83,3 +83,19 @@ require('telescope').setup({
     }
   },
 })
+
+-- toggleterm
+require("toggleterm").setup({
+  size = function(term)
+    if term.direction == "horizontal" then
+      return vim.o.lines * 0.3
+    elseif term.direction == "vertical" then
+      return vim.o.columns * 0.4
+    end
+  end,
+  open_mapping = [[<c-\>]],
+})
+function _G.set_terminal_keymaps()
+  vim.api.nvim_buf_set_keymap(0, 't', '<esc>', [[<C-\><C-n>]], {noremap = true})
+end
+vim.cmd('autocmd! TermOpen term://* lua set_terminal_keymaps()')

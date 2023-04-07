@@ -16,6 +16,7 @@ Plug 'steelsojka/pears.nvim'  " brackets auto pair
 Plug 'nvim-lua/plenary.nvim'  " depended by telescope
 Plug 'nvim-telescope/telescope.nvim'  " fuzzy finder
 Plug 'nanotech/jellybeans.vim'
+Plug 'akinsho/toggleterm.nvim'  " better terminal
 call plug#end()
 
 " vim settings
