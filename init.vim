@@ -17,10 +17,12 @@ Plug 'nvim-telescope/telescope.nvim'  " fuzzy finder
 Plug 'nvim-lua/plenary.nvim'  " depended by telescope
 Plug 'nanotech/jellybeans.vim'
 Plug 'akinsho/toggleterm.nvim'  " better terminal
+Plug 'lewis6991/spellsitter.nvim' " better spell check
 call plug#end()
 
 " vim settings
 set termguicolors
+set spell
 set signcolumn=number  " use number column to show sign
 set relativenumber number
 set fillchars+=vert:\|  " delimiter
@@ -34,7 +36,7 @@ set completeopt=menuone
 au FileType go setlocal noexpandtab
 
 " plugin and colors
-let g:jellybeans_overrides = { 'background': { 'guibg': '000000' } }
+let g:jellybeans_overrides = {'background': {'guibg': '000000'}, 'SpellBad': {'guibg': '222222'}}
 colorscheme jellybeans
 luafile ~/.config/nvim/conf.lua
 call ssh_clipboard#Enable()

@@ -32,7 +32,7 @@ vim.wo.foldexpr = "nvim_treesitter#foldexpr()"
 require("lualine").setup({
     sections = {
         lualine_b = {"branch"},
-        lualine_c = {"buffers"},
+        lualine_c = {{"buffers", buffers_color = {active = 'white'}}},
         lualine_x = {"diff", "diagnostics", "filetype"},
     },
     options = {section_separators = "", component_separators = ""},
@@ -87,7 +87,7 @@ require("telescope").setup({
         layout_config = {
             vertical = {width = 0.5, height = 0.5}
         },
-        layout_strategy = "vertical",
+        layout_strategy = "vertcal",
     },
 })
 
@@ -107,3 +107,6 @@ function _G.set_terminal_keymaps()
     vim.api.nvim_buf_set_keymap(0, "t", "<esc>", [[<C-\><C-n>]], opts)
 end
 vim.cmd("autocmd! TermOpen term://* lua set_terminal_keymaps()")
+
+-- spell check
+require('spellsitter').setup()
