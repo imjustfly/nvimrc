@@ -9,7 +9,8 @@ Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
 " language client
 Plug 'autozimu/LanguageClient-neovim', { 'branch': 'next', 'do': 'bash install.sh' }
 " completion
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+Plug 'ncm2/ncm2'
+Plug 'roxma/nvim-yarp'
 Plug 'Shougo/echodoc.vim'
 Plug 'ervandew/supertab'
 " lightline
@@ -58,16 +59,9 @@ nnoremap <silent> <leader>r :call LanguageClient#textDocument_references()<CR>:l
 nnoremap <silent> <leader>h :call LanguageClient#textDocument_hover()<CR>
 au BufWritePre *.h,*.c,*.go,*.py :call LanguageClient_textDocument_formatting()
 
-" deoplete
-let g:deoplete#enable_at_startup = 1
-let g:deoplete#sources = {}
-let g:deoplete#sources._ = ['buffer']
-let g:deoplete#sources.go = ['LanguageClient']
-let g:deoplete#sources.python = ['LanguageClient', 'buffer']
-let g:deoplete#sources.c = ['LanguageClient', 'buffer']
-call deoplete#custom#source('_',  'max_menu_width', 0)
-call deoplete#custom#source('_',  'max_abbr_width', 0)
-call deoplete#custom#source('_',  'max_kind_width', 0)
+" ncm2
+autocmd BufEnter * call ncm2#enable_for_buffer()
+set completeopt=noinsert,menuone,noselect
 
 " echodoc
 let g:echodoc_enable_at_startup = 1
