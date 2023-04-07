@@ -1,19 +1,10 @@
-# my simpe vimrc
+# simpe vimrc by mdhs
 
 My compact neovim configuration.
 
 ## Installation
 
-**Clone this repo**
-
-```shell
-git clone https://github.com/imjustfly/nvimrc.git ~/.config/nvim
-```
-
-**Install plugins**
-
-```
-:PlugInstall
-```
+1. Clone this repo to `~/.config/nvim`
+2. Install plugins by running `:PlugInstall` in vim
 
 Enjoy!
