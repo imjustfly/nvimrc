@@ -11,19 +11,15 @@ Plug 'Shougo/echodoc.vim'  " echo func doc in status line
 Plug 'itchyny/lightline.vim'
 Plug 'Raimondi/delimitMate'  " brackets auto close
 Plug 'bronson/vim-trailing-whitespace'
-Plug 'morhetz/gruvbox'  " color scheme
 call plug#end()
 
 let mapleader=','
 
 " plugin settings
 let g:Lf_ShortcutF = "<C-p>"
-let g:Lf_StlColorscheme = 'gruvbox_material'
 let g:Lf_StlSeparator = { 'left': '', 'right': '' }
 let g:echodoc_enable_at_startup = 1
-let g:lightline = {'colorscheme': 'gruvbox'}
 let g:SuperTabDefaultCompletionType = '<c-n>'
-let g:gruvbox_contrast_dark = 'hard'
 au FileType python let b:delimitMate_nesting_quotes = ['"', "'"]
 lua << EOF
 local servers = { 'gopls', 'clangd', 'pylsp' }
@@ -43,11 +39,10 @@ EOF
 syntax on
 syntax enable
 filetype plugin indent on
-colorscheme gruvbox
 set termguicolors background=dark
 set signcolumn=number  " use number comlumn to show sign
 set relativenumber number
-set fillchars+=vert:\|
+set fillchars+=vert:\|  " delimiter
 set noshowmode  " no need, we already have lightline
 set hidden  " allow hidden buffer being unsaved
 set splitbelow splitright
