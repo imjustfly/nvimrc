@@ -32,8 +32,8 @@ vim.wo.foldexpr = 'nvim_treesitter#foldexpr()'
 require('lualine').setup({
   options = {section_separators = '', component_separators = '' },
   sections = {
-    lualine_c = {{'filename', path = 1}},
-    lualine_x = {{'buffers'}},
+    lualine_c = {{'buffers'}},
+    lualine_x = {{'filename', path = 1}, 'fileformat', 'filetype'},
   }
 })
 
