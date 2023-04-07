@@ -45,15 +45,16 @@ syntax enable
 filetype plugin indent on
 colorscheme gruvbox
 set termguicolors background=dark
-set signcolumn=number  " prevent movement when showing sign
+set signcolumn=number  " use number comlumn to show sign
 set relativenumber number
 set fillchars+=vert:\|
 set list listchars=tab:▶‧,space:‧,eol:↵,nbsp:×
-set hidden  " allow hidden buffer being unsaved
 set noshowmode  " no need, we already have lightline
-set foldmethod=syntax foldnestmax=5 foldlevel=5
+set hidden  " allow hidden buffer being unsaved
 set splitbelow splitright
+set ignorecase smartcase  " ignore case for searching
 set expandtab smarttab shiftwidth=4 tabstop=4
+set foldmethod=syntax foldnestmax=5 foldlevel=5
 au FileType python setlocal foldmethod=indent
 au FileType go setlocal noexpandtab
 au FileType cpp setlocal shiftwidth=2 tabstop=2
