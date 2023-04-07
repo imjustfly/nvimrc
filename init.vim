@@ -65,10 +65,11 @@ au FileType cpp setlocal shiftwidth=2 tabstop=2
 au FileType javascript setlocal shiftwidth=2 tabstop=2
 
 " key bindings
-nnoremap <silent><leader>f <cmd>lua vim.lsp.buf.hover()<CR>
-nnoremap <silent><leader>r <cmd>lua vim.lsp.buf.references()<CR>
-nnoremap <silent><leader>d <cmd>lua vim.lsp.buf.definition()<CR>
-nnoremap <silent><leader>s <cmd>lua vim.lsp.buf.implementation()<CR>
+nnoremap <silent><leader><ESC> :cclose<CR>
+nnoremap <silent><leader>f :lua vim.lsp.buf.hover()<CR>
+nnoremap <silent><leader>r :lua vim.lsp.buf.references()<CR>
+nnoremap <silent><leader>d :lua vim.lsp.buf.definition()<CR>
+nnoremap <silent><leader>s :lua vim.lsp.buf.implementation()<CR>
 noremap <silent><C-j> :<C-U><C-R>=printf("Leaderf buffer %s", "")<CR><CR>
 noremap <silent><C-k> :<C-U><C-R>=printf("Leaderf bufTag %s", "")<CR><CR>
 noremap <silent><C-l> :<C-U><C-R>=printf("Leaderf line %s", "")<CR><CR>
