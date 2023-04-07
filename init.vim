@@ -13,8 +13,8 @@ Plug 'hrsh7th/cmp-buffer'
 Plug 'hrsh7th/nvim-cmp'
 Plug 'nvim-lualine/lualine.nvim'
 Plug 'steelsojka/pears.nvim'  " brackets auto pair
-Plug 'nvim-lua/plenary.nvim'  " depended by telescope
 Plug 'nvim-telescope/telescope.nvim'  " fuzzy finder
+Plug 'nvim-lua/plenary.nvim'  " depended by telescope
 Plug 'nanotech/jellybeans.vim'
 Plug 'akinsho/toggleterm.nvim'  " better terminal
 call plug#end()
@@ -28,11 +28,10 @@ set list listchars=tab:>-,eol:↲,trail:◦
 set noshowmode  " no need, we already have lightline
 set splitbelow splitright
 set ignorecase smartcase  " ignore case for searching
-set expandtab smarttab shiftwidth=2 tabstop=2
+set expandtab smarttab shiftwidth=4 tabstop=4
 set foldnestmax=5 foldlevel=5
 set completeopt=menuone
 au FileType go setlocal noexpandtab
-au FileType cpp,python setlocal shiftwidth=4 tabstop=4
 
 " plugin and colors
 let g:jellybeans_overrides = { 'background': { 'guibg': '000000' } }
@@ -41,15 +40,18 @@ luafile ~/.config/nvim/conf.lua
 call ssh_clipboard#Enable()
 
 " key bindings
-nnoremap <silent><leader>f :lua vim.lsp.buf.hover()<CR>
-nnoremap <silent><leader>d <cmd>Telescope lsp_definitions<CR>
-nnoremap <silent><leader>s <cmd>Telescope lsp_implementations<CR>
-nnoremap <silent><leader>r <cmd>Telescope lsp_references<CR>
-nnoremap <silent><leader>t <cmd>Telescope diagnostics bufnr=0<CR>
-nnoremap <silent><leader>a :lua vim.lsp.buf.formatting()<CR>
+nnoremap <silent><leader>f :lua vim.lsp.buf.hover()<cr>
+nnoremap <silent><leader>d <cmd>Telescope lsp_definitions<cr>
+nnoremap <silent><leader>s <cmd>Telescope lsp_implementations<cr>
+nnoremap <silent><leader>r <cmd>Telescope lsp_references<cr>
+nnoremap <silent><leader>t <cmd>Telescope diagnostics bufnr=0<cr>
+nnoremap <silent><leader>a :lua vim.lsp.buf.formatting()<cr>
 nnoremap <silent><C-p> <cmd>Telescope git_files<cr>
-nnoremap <silent><C-l> <cmd>Telescope current_buffer_fuzzy_find<cr>
+nnoremap <silent><C-j> <cmd>Telescope buffers<cr>
+nnoremap <silent><C-y> <cmd>Telescope current_buffer_fuzzy_find<cr>
 nnoremap <silent><C-g> <cmd>Telescope live_grep<cr>
 nnoremap <silent><C-k> <cmd>Telescope treesitter<cr>
-nnoremap <silent><C-j> <cmd>Telescope buffers<cr>
+nnoremap <silent><C-h> <cmd>bp<cr>
+nnoremap <silent><C-l> <cmd>bn<cr>
+nnoremap <silent><C-x> <cmd>bd<cr>
 xnoremap gf <cmd>Telescope grep_string<cr>

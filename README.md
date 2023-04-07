@@ -1,6 +1,6 @@
 # my simpe vimrc
 
-A really compact (70 lines) neovim configuration.
+My compact neovim configuration.
 
 ## Installation
 
