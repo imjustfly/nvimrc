@@ -194,13 +194,13 @@ endfunction
 function! LCNHover() abort
     if g:LanguageClient_useFloatingHover
         call LanguageClient#textDocument_hover()
-    else
-        call LanguageClient_runSync("LanguageClient#textDocument_hover", {'handle': v:true})
-        wincmd p
-        if getwinvar(win_id2win(win_getid()), "&pvw")
-            setlocal wrap
-            nnoremap <silent><buffer><ESC> :q<CR>
-        endif
+        return
+    endif
+    call LanguageClient_runSync("LanguageClient#textDocument_hover", {'handle': v:true})
+    wincmd p
+    if getwinvar(win_id2win(win_getid()), "&pvw")
+        setlocal wrap
+        nnoremap <silent><buffer><ESC> :q<CR>
     endif
 endfunction
 nnoremap <silent><leader>d :call LCNDefinition()<CR>
