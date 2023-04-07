@@ -17,6 +17,7 @@ let mapleader=','
 
 " plugin settings
 let g:Lf_ShortcutF = "<C-p>"
+let g:Lf_UseCache = 0
 let g:Lf_StlSeparator = { 'left': '', 'right': '' }
 let g:echodoc_enable_at_startup = 1
 let g:SuperTabDefaultCompletionType = '<c-n>'
@@ -39,7 +40,6 @@ EOF
 syntax on
 syntax enable
 filetype plugin indent on
-set termguicolors background=dark
 set signcolumn=number  " use number comlumn to show sign
 set relativenumber number
 set fillchars+=vert:\|  " delimiter
