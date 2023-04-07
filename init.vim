@@ -16,14 +16,14 @@ Plug 'steelsojka/pears.nvim'  " brackets auto pair
 Plug 'nvim-telescope/telescope.nvim'  " fuzzy finder
 Plug 'nvim-lua/plenary.nvim'  " depended by telescope
 Plug 'akinsho/toggleterm.nvim'  " better terminal
-Plug 'lewis6991/spellsitter.nvim' " better spell check
 Plug 'famiu/bufdelete.nvim' " better buffer deletion
 Plug 'kvrohit/rasmus.nvim'
+Plug 'folke/trouble.nvim'
 call plug#end()
 
 " vim settings
 set termguicolors
-set spell
+set spell spl=en,cjk
 set signcolumn=number  " use number column to show sign
 set relativenumber number
 set fillchars+=vert:\|  " delimiter
@@ -45,10 +45,10 @@ call ssh_clipboard#Enable()
 
 " key bindings
 nnoremap <silent><leader>f :lua vim.lsp.buf.hover()<cr>
-nnoremap <silent><leader>d <cmd>Telescope lsp_definitions<cr>
+nnoremap <silent><leader>d <cmd>TroubleToggle lsp_definitions<cr>
 nnoremap <silent><leader>s <cmd>Telescope lsp_implementations<cr>
-nnoremap <silent><leader>r <cmd>Telescope lsp_references<cr>
-nnoremap <silent><leader>t <cmd>Telescope diagnostics bufnr=0<cr>
+nnoremap <silent><leader>r <cmd>TroubleToggle lsp_references<cr>
+nnoremap <silent><leader>t <cmd>TroubleToggle document_diagnostics<cr>
 nnoremap <silent><leader>a :lua vim.lsp.buf.formatting()<cr>
 nnoremap <silent><C-p> <cmd>Telescope git_files<cr>
 nnoremap <silent><C-j> <cmd>Telescope buffers<cr>

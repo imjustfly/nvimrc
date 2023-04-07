@@ -3,3 +3,4 @@ plugged/
 *.swp
 cache/
 .netrwhist
+*.spl

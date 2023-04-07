@@ -103,5 +103,8 @@ function _G.set_terminal_keymaps()
 end
 vim.cmd("autocmd! TermOpen term://* lua set_terminal_keymaps()")
 
--- spell check
-require('spellsitter').setup()
+-- trouble
+require("trouble").setup({
+    height = 15,
+    icons = false,
+})
