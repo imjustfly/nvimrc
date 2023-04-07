@@ -10,9 +10,9 @@ Plug 'ervandew/supertab'  " use tab to select candidate words
 Plug 'Shougo/echodoc.vim'  " echo func doc in status line
 Plug 'itchyny/lightline.vim'
 Plug 'Raimondi/delimitMate'  " brackets auto close
-Plug 'scrooloose/nerdcommenter'
+Plug 'airblade/vim-gitgutter'  " show git info in sign column
 Plug 'bronson/vim-trailing-whitespace'
-Plug 'morhetz/gruvbox'
+Plug 'morhetz/gruvbox'  " color scheme
 call plug#end()
 
 let mapleader=','
@@ -24,7 +24,7 @@ let g:Lf_WindowPosition = 'popup'
 let g:Lf_PreviewInPopup = 1
 let g:echodoc_enable_at_startup = 1
 let g:lightline = {'colorscheme': 'gruvbox'}
-let g:NERDSpaceDelims = 1
+let g:gitgutter_override_sign_column_highlight = 1
 let g:SuperTabDefaultCompletionType = '<c-n>'
 let g:gruvbox_contrast_dark = 'hard'
 au FileType python let b:delimitMate_nesting_quotes = ['"', "'"]
@@ -48,7 +48,7 @@ syntax enable
 filetype plugin indent on
 colorscheme gruvbox
 set termguicolors background=dark
-set signcolumn=number  " use number comlumn to show sign
+set signcolumn=yes  " use number comlumn to show sign
 set relativenumber number
 set fillchars+=vert:\|
 set list listchars=tab:>‧,space:‧,eol:↵,nbsp:×
