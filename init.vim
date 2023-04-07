@@ -51,7 +51,7 @@ set termguicolors background=dark
 set signcolumn=number  " use number comlumn to show sign
 set relativenumber number
 set fillchars+=vert:\|
-set list listchars=tab:▶‧,space:‧,eol:↵,nbsp:×
+set list listchars=tab:>‧,space:‧,eol:↵,nbsp:×
 set noshowmode  " no need, we already have lightline
 set hidden  " allow hidden buffer being unsaved
 set splitbelow splitright
