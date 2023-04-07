@@ -35,7 +35,7 @@ set noshowmode  " no need, we already have lightline
 set splitbelow splitright
 set ignorecase smartcase  " ignore case for searching
 set expandtab smarttab shiftwidth=4 tabstop=4
-set foldnestmax=5 foldlevel=5
+set foldmethod=indent foldnestmax=5 foldlevel=5
 set completeopt=menuone
 au FileType go setlocal noexpandtab
 
