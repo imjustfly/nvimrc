@@ -22,7 +22,9 @@ Plug 'folke/trouble.nvim'
 call plug#end()
 
 " vim settings
+set mouse=
 set termguicolors
+set nowrap
 set spell spl=en,cjk
 set signcolumn=number  " use number column to show sign
 set relativenumber number
