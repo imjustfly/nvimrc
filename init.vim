@@ -3,9 +3,7 @@
 " enjoy!
 "
 call plug#begin('~/.config/nvim/plugged')
-" fzf
-Plug '/usr/local/opt/fzf'
-Plug 'junegunn/fzf.vim'
+Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
 " language client
 Plug 'autozimu/LanguageClient-neovim', { 'branch': 'next', 'do': 'bash install.sh' }
 " completion
@@ -21,7 +19,6 @@ Plug 'itchyny/vim-gitbranch'
 Plug 'airblade/vim-gitgutter'
 " brackets
 Plug 'Raimondi/delimitMate'
-Plug 'luochen1990/rainbow'
 " comment
 Plug 'scrooloose/nerdcommenter'
 " show and fix tralling whitespace
@@ -29,7 +26,7 @@ Plug 'bronson/vim-trailing-whitespace'
 " language enhancement
 Plug 'cespare/vim-toml', { 'for': 'toml' }
 " colors
-Plug 'srcery-colors/srcery-vim'
+Plug 'morhetz/gruvbox'
 " pos navigator
 Plug 'imjustfly/vim-navigator'
 call plug#end()
@@ -37,30 +34,24 @@ call plug#end()
 " leader key
 let mapleader=' '
 
-" fzf
-let g:fzf_action = {
-  \ 'ctrl-t': 'tab split',
-  \ 'ctrl-h': 'split',
-  \ 'ctrl-v': 'vsplit' }
-let g:fzf_buffers_jump = 1
-let g:fzf_colors =
-\ { 'fg':      ['fg', 'Normal'],
-  \ 'bg':      ['bg', 'Normal'],
-  \ 'hl':      ['fg', 'Comment'],
-  \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
-  \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
-  \ 'hl+':     ['fg', 'Statement'],
-  \ 'info':    ['fg', 'PreProc'],
-  \ 'border':  ['fg', 'Ignore'],
-  \ 'prompt':  ['fg', 'Conditional'],
-  \ 'pointer': ['fg', 'Exception'],
-  \ 'marker':  ['fg', 'Keyword'],
-  \ 'spinner': ['fg', 'Label'],
-  \ 'header':  ['fg', 'Comment'] }
+" leaderf
+let g:Lf_ShortcutF = "<leader>ff"
+let g:Lf_HideHelp = 1
+let g:Lf_UseCache = 0
+let g:Lf_IgnoreCurrentBufferName = 1
+let g:Lf_WindowPosition = 'popup'
+let g:Lf_PreviewInPopup = 1
+let g:Lf_StlSeparator = { 'left': "\ue0b0", 'right': "\ue0b2"}
+let g:Lf_PreviewResult = {'Function': 0, 'BufTag': 0 }
+
+" search visually selected text literally
+xnoremap gf :<C-U><C-R>=printf("Leaderf! rg -F -e %s ", leaderf#Rg#visual())<CR>
+noremap go :<C-U>Leaderf! rg --recall<CR>
 
 " language client
 let g:LanguageClient_serverCommands = {
             \ 'go' : ['bingo', '-disable-func-snippet', '-diagnostics-style', 'onsave'],
+            \ 'python' : ['pyls'],
             \ 'c' : ['cquery', '--log-file=/tmp/cquery.log', '--init={"cacheDirectory":"/tmp/cquery/", "completion": {"filterAndSort": false}}'],
     \ }
 let g:LanguageClient_loggingFile = '/tmp/languageclient.log'
@@ -83,7 +74,7 @@ let g:SuperTabRetainCompletionType=2
 let g:lightline = {}
 let g:lightline.component = {
     \    'winnr': '%{nr2char(9311 + winnr())} ',
-    \    'filename': '❖ %t',
+    \    'filename': '✐ %t',
     \    'gitbranch': ' %{gitbranch#name()}',
     \ }
 let g:lightline.active = {
@@ -98,7 +89,8 @@ let g:lightline.inactive = {
     \           [ 'filename' ] ],
     \ 'right': [ [ 'lineinfo' ],
     \            [ 'percent' ] ] }
-let g:lightline.colorscheme = 'srcery'
+let g:lightline.separator = { 'left': '', 'right': '' }
+let g:lightline.colorscheme = 'gruvbox'
 
 "vim-gitgutter
 let g:gitgutter_override_sign_column_highlight = 1
@@ -120,18 +112,14 @@ let g:NERDCommentEmptyLines = 1
 let g:NERDTrimTrailingWhitespace = 1
 let g:NERDToggleCheckAllLines = 1
 
-let g:srcery_italic = 1
-let g:srcery_transparent_background = 1
-let g:srcery_inverse_matches = 1
-let g:srcery_inverse_match_paren = 1
-
+let g:gruvbox_contrast_dark = 'hard'
 
 " basic config
 syntax on
 syntax enable
 set termguicolors
 set background=dark
-colorscheme srcery
+colorscheme gruvbox
 set ai
 set re=1
 set bs=2
@@ -157,16 +145,18 @@ set expandtab
 set shiftwidth=4
 set tabstop=4
 set switchbuf=useopen,usetab
+set list
+set listchars=tab:▶‧,nbsp:%,space:‧,eol:↲,extends:►,precedes:◄,nbsp:×
+set nowrap
+set ss=0
 
 " language related configs
 filetype plugin indent on
-au WinNew * set cc=
-au FileType c set cc=80
 au BufRead,BufNewFile *.h,*.c set filetype=c
 au BufNewFile,BufRead go.mod if getline(1) =~ '^module.*' | set filetype=gomod |  endif
 au FileType python setlocal et sta sw=4 sts=4
 au FileType python setlocal foldmethod=indent
-au FileType python set cc=79
+au FileType markdown set nowrap
 au FileType go setlocal noexpandtab
 au FileType vue set shiftwidth=2 tabstop=2
 au FileType javascript set shiftwidth=2 tabstop=2
@@ -194,6 +184,8 @@ nnoremap <leader>w4 4<c-w><c-w>
 nnoremap <leader>w5 5<c-w><c-w>
 nnoremap <leader>w6 6<c-w><c-w>
 nnoremap <leader>ws <c-w><c-w>
+nnoremap <leader>wH <c-w>R
+nnoremap <leader>wL <c-w>r
 nnoremap <silent><leader>wd :close<cr>
 
 " jump stack
@@ -221,15 +213,11 @@ nnoremap <silent><leader>lh :call LanguageClient#textDocument_hover()<CR>
 nnoremap <silent><leader>lc :call LanguageClient_contextMenu()<CR>
 nnoremap <silent><leader>ls :LanguageClientStart<CR>
 
-" fzf
-nnoremap <silent><leader>fw :Windows<cr>
-nnoremap <silent><leader>fb :Buffers<cr>
-nnoremap <silent><leader>fp :Files<cr>
-nnoremap <silent><leader>ff :BTags<cr>
-nnoremap <silent><leader>fm :Marks<cr>
-nnoremap <silent><leader>fc :Commands<cr>
-nnoremap <leader>fg :Ag<space>
-nnoremap <silent><leader>f* :Ag <c-r><c-w><cr>
+" leaderf
+noremap <silent><leader>fb :<C-U><C-R>=printf("Leaderf buffer %s", "")<CR><CR>
+noremap <silent><leader>fm :<C-U><C-R>=printf("Leaderf mru %s", "")<CR><CR>
+noremap <silent><leader>ft :<C-U><C-R>=printf("Leaderf bufTag %s", "")<CR><CR>
+noremap <silent><leader>fl :<C-U><C-R>=printf("Leaderf line %s", "")<CR><CR>
 
 " comment
 imap <C-c> <plug>NERDCommenterInsert
