@@ -58,7 +58,6 @@ cmp.setup({
     completion = {
         autocomplete = false
     },
-    -- behave like suptertab
     mapping = {
         ["<Tab>"] = cmp.mapping(
             function(fallback)
@@ -92,6 +91,17 @@ require("telescope").setup({
         layout_strategy = "vertical",
     },
 })
+
+-- toggleterm
+require("toggleterm").setup({
+    open_mapping = [[<c-\>]],
+    direction = 'float'
+})
+function _G.set_terminal_keymaps()
+    local opts = {noremap = true}
+    vim.api.nvim_buf_set_keymap(0, "t", "<esc>", [[<C-\><C-n>]], opts)
+end
+vim.cmd("autocmd! TermOpen term://* lua set_terminal_keymaps()")
 
 -- spell check
 require('spellsitter').setup()

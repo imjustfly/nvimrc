@@ -15,8 +15,10 @@ Plug 'nvim-lualine/lualine.nvim'
 Plug 'steelsojka/pears.nvim'  " brackets auto pair
 Plug 'nvim-telescope/telescope.nvim'  " fuzzy finder
 Plug 'nvim-lua/plenary.nvim'  " depended by telescope
-Plug 'nanotech/jellybeans.vim'
+Plug 'akinsho/toggleterm.nvim'  " better terminal
 Plug 'lewis6991/spellsitter.nvim' " better spell check
+Plug 'ishan9299/nvim-solarized-lua'
+Plug 'nanotech/jellybeans.vim'
 call plug#end()
 
 " vim settings
@@ -34,13 +36,7 @@ set foldnestmax=5 foldlevel=5
 set completeopt=menuone
 au FileType go setlocal noexpandtab
 
-" plugin and colors
-let g:jellybeans_overrides = {
-            \ 'background': {'guibg': '000000'},
-            \ 'SpellBad': {'guibg': '222222'},
-            \ 'SpellCap': {'guibg': '222222'},
-            \}
-colorscheme jellybeans
+colorscheme solarized
 luafile ~/.config/nvim/conf.lua
 call ssh_clipboard#Enable()
 
