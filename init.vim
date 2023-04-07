@@ -9,10 +9,10 @@ Plug 'autozimu/LanguageClient-neovim', { 'branch': 'next', 'do': 'bash install.s
 Plug 'roxma/nvim-yarp'  "needed by ncm2
 Plug 'ncm2/ncm2'
 Plug 'ncm2/ncm2-bufword'
-Plug 'ervandew/supertab'
-Plug 'Shougo/echodoc.vim'
+Plug 'ervandew/supertab'  " use tab to select candidate words
+Plug 'Shougo/echodoc.vim'  " echo func doc in status line
 Plug 'itchyny/lightline.vim'
-Plug 'airblade/vim-gitgutter'
+Plug 'airblade/vim-gitgutter'  " git in sign clolumn
 Plug 'Raimondi/delimitMate'  " brackets auto close
 Plug 'scrooloose/nerdcommenter'
 Plug 'bronson/vim-trailing-whitespace'
@@ -40,7 +40,7 @@ let g:NERDSpaceDelims = 1
 let g:gruvbox_contrast_dark = 'hard'
 au FileType python let b:delimitMate_nesting_quotes = ['"', "'"]
 autocmd BufEnter * call ncm2#enable_for_buffer()
-set completeopt=noinsert,menuone,noselect  " :help Ncm2PopupOpen
+set completeopt=noinsert,menuone,noselect  " :help Ncm2PopupOpen for more
 
 " vim settings
 syntax on
@@ -48,34 +48,30 @@ syntax enable
 colorscheme gruvbox
 set termguicolors
 set background=dark
-set autoindent
-set regexpengine=1
-set backspace=2
-set noshowmode
-set ignorecase
+set noshowmode  " no need, we already have lightline
 set fileencodings=utf-8
 set foldmethod=syntax
-set foldnestmax=10
-set nofoldenable
-set foldlevel=10
-set hidden
+set foldnestmax=5
+set foldlevel=5
+set hidden  " allow hidden buffer being unsaved
 set splitbelow
 set splitright
 set signcolumn=yes
-set fillchars+=vert:\|
 set expandtab
-set shiftwidth=4
 set tabstop=4
+set smarttab
+set shiftwidth=4
 set switchbuf=useopen,usetab
 set list
-set listchars=tab:▶‧,nbsp:%,space:‧,eol:↵,nbsp:×
+set listchars=tab:▶‧,space:‧,eol:↵,nbsp:×
+set fillchars+=vert:\|
 set relativenumber number
 
 filetype plugin indent on
-au FileType python setlocal et sta sw=4 sts=4 foldmethod=indent
+au FileType python setlocal sta foldmethod=indent
 au FileType go setlocal noexpandtab
-au FileType cpp set shiftwidth=2 tabstop=2
-au FileType javascript set shiftwidth=2 tabstop=2
+au FileType cpp setlocal shiftwidth=2 tabstop=2
+au FileType javascript setlocal shiftwidth=2 tabstop=2
 au FileType qf nnoremap <buffer> <Esc> :q<Enter>
 
 " key bindings
