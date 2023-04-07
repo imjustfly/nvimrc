@@ -65,10 +65,6 @@ au FileType cpp setlocal shiftwidth=2 tabstop=2
 au FileType javascript setlocal shiftwidth=2 tabstop=2
 
 " key bindings
-map <silent><C-e> <ESC>
-nnoremap <silent><C-e>m :NavMark<CR>
-nnoremap <silent><C-e>k :NavBack<CR>
-nnoremap <silent><C-e>j :NavForward<CR>
 nnoremap <silent><leader>f <cmd>lua vim.lsp.buf.hover()<CR>
 nnoremap <silent><leader>r <cmd>lua vim.lsp.buf.references()<CR>
 nnoremap <silent><leader>d <cmd>lua vim.lsp.buf.definition()<CR>
@@ -78,4 +74,4 @@ noremap <silent><C-k> :<C-U><C-R>=printf("Leaderf bufTag %s", "")<CR><CR>
 noremap <silent><C-l> :<C-U><C-R>=printf("Leaderf line %s", "")<CR><CR>
 xnoremap gf :<C-U><C-R>=printf("Leaderf! rg -F -e %s ", leaderf#Rg#visual())<CR>
 noremap go :<C-U>Leaderf! rg --recall<CR>
-au FileType qf nnoremap <buffer> <Esc> :q<Enter>
+au FileType qf wincmd J | nnoremap <buffer> <Esc> :q<Enter>
