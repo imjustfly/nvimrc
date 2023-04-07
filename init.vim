@@ -82,8 +82,8 @@ au FileType qf nnoremap <buffer> <Esc> :q<Enter>
 " key bindings
 map <silent><C-e> <ESC>
 nnoremap <silent><C-e>m :NavMark<CR>
-nnoremap <silent><C-e>b :NavBack<CR>
-nnoremap <silent><C-e>f :NavForward<CR>
+nnoremap <silent><C-e>j :NavBack<CR>
+nnoremap <silent><C-e>k :NavForward<CR>
 function! LCNDefinition() abort
     NavMark
     call LanguageClient_runSync("LanguageClient#textDocument_definition", {'handle': v:true})
