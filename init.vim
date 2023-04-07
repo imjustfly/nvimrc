@@ -17,7 +17,7 @@ Plug 'nvim-telescope/telescope.nvim'  " fuzzy finder
 Plug 'nvim-lua/plenary.nvim'  " depended by telescope
 Plug 'akinsho/toggleterm.nvim'  " better terminal
 Plug 'lewis6991/spellsitter.nvim' " better spell check
-Plug 'bluz71/vim-moonfly-colors'
+Plug 'kvrohit/rasmus.nvim'
 call plug#end()
 
 " vim settings
@@ -35,7 +35,10 @@ set foldnestmax=5 foldlevel=5
 set completeopt=menuone
 au FileType go setlocal noexpandtab
 
-colorscheme moonfly
+let g:rasmus_transparent = 1
+let g:rasmus_bold_functions = 1
+let g:rasmus_bold_keywords = 1
+colorscheme rasmus
 luafile ~/.config/nvim/conf.lua
 call ssh_clipboard#Enable()
 
