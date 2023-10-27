@@ -24,13 +24,13 @@ call plug#end()
 
 " vim settings
 set mouse=
-" set termguicolors
+set termguicolors
 set nowrap
-set spell spl=en,cjk
+" set spell spl=en,cjk
 set signcolumn=number  " use number column to show sign
 set relativenumber number
 set fillchars+=vert:\|  " delimiter
-set list listchars=tab:>-,eol:↲,trail:◦
+set list listchars=tab:>-,trail:◦
 set noshowmode  " no need, we already have lightline
 set splitbelow splitright
 set ignorecase smartcase  " ignore case for searching
@@ -42,7 +42,6 @@ au FileType go setlocal noexpandtab
 let g:rasmus_transparent = 1
 let g:rasmus_bold_functions = 1
 let g:rasmus_bold_keywords = 1
-let g:gitblame_enabled = 0
 colorscheme rasmus
 luafile ~/.config/nvim/conf.lua
 call ssh_clipboard#Enable()
@@ -53,7 +52,7 @@ nnoremap <silent><leader>d <cmd>TroubleToggle lsp_definitions<cr>
 nnoremap <silent><leader>s <cmd>Telescope lsp_implementations<cr>
 nnoremap <silent><leader>r <cmd>TroubleToggle lsp_references<cr>
 nnoremap <silent><leader>t <cmd>TroubleToggle document_diagnostics<cr>
-nnoremap <silent><leader>a :lua vim.lsp.buf.formatting()<cr>
+nnoremap <silent><leader>a :lua vim.lsp.buf.format()<cr>
 nnoremap <silent><leader>b <cmd>GitBlameToggle<cr>
 nnoremap <silent><C-p> <cmd>Telescope git_files<cr>
 nnoremap <silent><C-j> <cmd>Telescope buffers<cr>

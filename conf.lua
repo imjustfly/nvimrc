@@ -2,11 +2,10 @@
 --
 
 -- lsp
-local servers = {"gopls", "clangd", "pylsp"}
 local nvim_lsp = require("lspconfig")
-for _, lsp in ipairs(servers) do
-    nvim_lsp[lsp].setup({})
-end
+nvim_lsp.clangd.setup{filetypes = { "c", "cpp", "cc"}}
+nvim_lsp.gopls.setup{}
+nvim_lsp.pylsp.setup{}
 
 -- treesitter
 require("nvim-treesitter.configs").setup({
@@ -105,4 +104,9 @@ vim.cmd("autocmd! TermOpen term://* lua set_terminal_keymaps()")
 require("trouble").setup({
     height = 15,
     icons = false,
+})
+
+-- git blame
+require('gitblame').setup({
+    enabled = false,
 })
