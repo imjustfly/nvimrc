@@ -17,9 +17,9 @@ Plug 'nvim-telescope/telescope.nvim'  " fuzzy finder
 Plug 'nvim-lua/plenary.nvim'  " depended by telescope
 Plug 'akinsho/toggleterm.nvim'  " better terminal
 Plug 'famiu/bufdelete.nvim' " better buffer deletion
-Plug 'imjustfly/rasmus.nvim'
 Plug 'folke/trouble.nvim'
 Plug 'f-person/git-blame.nvim'
+Plug 'ishan9299/modus-theme-vim'
 call plug#end()
 
 " vim settings
@@ -30,7 +30,7 @@ set nowrap
 set signcolumn=number  " use number column to show sign
 set relativenumber number
 set fillchars+=vert:\|  " delimiter
-set list listchars=tab:>-,trail:◦
+set list listchars=tab:\ \ ,trail:●
 set noshowmode  " no need, we already have lightline
 set splitbelow splitright
 set ignorecase smartcase  " ignore case for searching
@@ -39,12 +39,10 @@ set foldmethod=indent foldnestmax=5 foldlevel=5
 set completeopt=menuone
 au FileType go setlocal noexpandtab
 
-let g:rasmus_transparent = 1
-let g:rasmus_bold_functions = 1
-let g:rasmus_bold_keywords = 1
-colorscheme rasmus
+let g:modus_termtrans_enable = 1
+let g:modus_faint_syntax = 1
+colorscheme modus-operandi
 luafile ~/.config/nvim/conf.lua
-call ssh_clipboard#Enable()
 
 " key bindings
 nnoremap <silent><leader>f :lua vim.lsp.buf.hover()<cr>
