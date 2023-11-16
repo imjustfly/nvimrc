@@ -19,7 +19,7 @@ Plug 'akinsho/toggleterm.nvim'  " better terminal
 Plug 'famiu/bufdelete.nvim' " better buffer deletion
 Plug 'folke/trouble.nvim'
 Plug 'f-person/git-blame.nvim'
-Plug 'ishan9299/modus-theme-vim'
+Plug 'imjustfly/modus-theme-vim'
 call plug#end()
 
 " vim settings
@@ -39,8 +39,7 @@ set foldmethod=indent foldnestmax=5 foldlevel=5
 set completeopt=menuone
 au FileType go setlocal noexpandtab
 
-let g:modus_termtrans_enable = 1
-let g:modus_faint_syntax = 1
+let g:modus_dim_inactive_window = 0
 colorscheme modus-operandi
 luafile ~/.config/nvim/conf.lua
 
