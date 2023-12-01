@@ -19,7 +19,7 @@ Plug 'akinsho/toggleterm.nvim'  " better terminal
 Plug 'famiu/bufdelete.nvim' " better buffer deletion
 Plug 'folke/trouble.nvim'
 Plug 'f-person/git-blame.nvim'
-Plug 'imjustfly/modus-theme-vim'
+Plug 'imjustfly/rasmus.nvim'
 call plug#end()
 
 " vim settings
@@ -39,8 +39,11 @@ set foldmethod=indent foldnestmax=5 foldlevel=5
 set completeopt=menuone
 au FileType go setlocal noexpandtab
 
-let g:modus_dim_inactive_window = 0
-colorscheme modus-operandi
+let g:rasmus_transparent = 1
+let g:rasmus_bold_functions = 1
+let g:rasmus_bold_keywords = 1
+colorscheme rasmus
+" colorscheme solarized-flat
 luafile ~/.config/nvim/conf.lua
 
 " key bindings
