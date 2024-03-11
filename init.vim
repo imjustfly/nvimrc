@@ -39,11 +39,7 @@ set foldmethod=indent foldnestmax=5 foldlevel=5
 set completeopt=menuone
 au FileType go setlocal noexpandtab
 
-let g:rasmus_transparent = 1
-let g:rasmus_bold_functions = 1
-let g:rasmus_bold_keywords = 1
 colorscheme rasmus
-" colorscheme solarized-flat
 luafile ~/.config/nvim/conf.lua
 
 " key bindings
@@ -54,7 +50,7 @@ nnoremap <silent><leader>r <cmd>TroubleToggle lsp_references<cr>
 nnoremap <silent><leader>t <cmd>TroubleToggle document_diagnostics<cr>
 nnoremap <silent><leader>a :lua vim.lsp.buf.format()<cr>
 nnoremap <silent><leader>b <cmd>GitBlameToggle<cr>
-nnoremap <silent><C-p> <cmd>Telescope git_files<cr>
+nnoremap <silent><C-p> <cmd>Telescope find_files<cr>
 nnoremap <silent><C-j> <cmd>Telescope buffers<cr>
 nnoremap <silent><C-y> <cmd>Telescope current_buffer_fuzzy_find<cr>
 nnoremap <silent><C-g> <cmd>Telescope live_grep<cr>

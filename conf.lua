@@ -3,9 +3,13 @@
 
 -- lsp
 local nvim_lsp = require("lspconfig")
-nvim_lsp.clangd.setup{filetypes = { "c", "cpp", "cc"}}
-nvim_lsp.gopls.setup{}
-nvim_lsp.pylsp.setup{}
+local on_attach = function(client, bufnr)
+    client.server_capabilities.semanticTokensProvider = nil
+end
+nvim_lsp.clangd.setup{on_attach = on_attach, filetypes = { "c", "cpp", "cc"}}
+nvim_lsp.gopls.setup{on_attach = on_attach}
+nvim_lsp.pylsp.setup{on_attach = on_attach}
+nvim_lsp.rust_analyzer.setup{on_attach = on_attach}
 
 -- treesitter
 require("nvim-treesitter.configs").setup({
@@ -90,15 +94,24 @@ require("telescope").setup({
 })
 
 -- toggleterm
+function term_width(term)
+    return math.min(math.floor(vim.o.columns * 0.8), 180)
+end
+
+function term_height(term)
+    local width = term_width(term)
+    return math.floor(vim.o.lines * 0.8)
+end
+-- end
+
 require("toggleterm").setup({
     open_mapping = [[<c-\>]],
-    direction = 'float'
+    direction = 'float',
+    float_opts = {
+        width = term_width,
+        height = term_height,
+    }
 })
-function _G.set_terminal_keymaps()
-    local opts = {noremap = true}
-    vim.api.nvim_buf_set_keymap(0, "t", "<esc>", [[<C-\><C-n>]], opts)
-end
-vim.cmd("autocmd! TermOpen term://* lua set_terminal_keymaps()")
 
 -- trouble
 require("trouble").setup({
