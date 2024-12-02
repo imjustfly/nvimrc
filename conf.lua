@@ -8,7 +8,13 @@ local on_attach = function(client, bufnr)
 end
 nvim_lsp.clangd.setup{on_attach = on_attach, filetypes = { "c", "cpp", "cc"}}
 nvim_lsp.gopls.setup{on_attach = on_attach}
-nvim_lsp.pylsp.setup{on_attach = on_attach}
+nvim_lsp.pylsp.setup{on_attach = on_attach, settings = {
+    pylsp = {
+        plugins = {
+            yapf = {enabled = false},
+        }
+    }
+}}
 nvim_lsp.rust_analyzer.setup{on_attach = on_attach}
 
 -- treesitter
@@ -16,7 +22,7 @@ require("nvim-treesitter.configs").setup({
     ensure_installed = {"cpp", "go", "python"},
     highlight = {
         enable = true,
-        additional_vim_regex_highlighting = false
+        additional_vim_regex_highlighting = { "python" }
     },
     incremental_selection = {
         enable = true,
@@ -26,17 +32,16 @@ require("nvim-treesitter.configs").setup({
             node_decremental = "<BS>",
             scope_incremental = "<TAB>"
         }
+    },
+    indent = {
+        enable = true,
+        disable = {"python"}
     }
 })
 
 -- lualine
 require("lualine").setup({
-    sections = {
-        lualine_b = {"branch"},
-        lualine_c = {{"buffers", buffers_color = {active = 'white'}}},
-        lualine_x = {"diff", "diagnostics", "filetype"},
-    },
-    options = {section_separators = "", component_separators = "", globalstatus = true},
+     options = {globalstatus = true},
 })
 
 -- pears
@@ -86,10 +91,7 @@ require("telescope").setup({
                 ["<esc>"] = require("telescope.actions").close
             }
         },
-        layout_config = {
-            vertical = {width = 0.5, height = 0.5}
-        },
-        layout_strategy = "vertical",
+        layout_strategy = "horizontal",
     },
 })
 
@@ -113,11 +115,11 @@ require("toggleterm").setup({
     }
 })
 
--- trouble
-require("trouble").setup({
-    height = 15,
-    icons = false,
-})
+function _G.set_terminal_keymaps()
+  local opts = {buffer = 0}
+  vim.keymap.set('t', '<esc>', [[<C-\><C-n>]], opts)
+end
+vim.cmd('autocmd! TermOpen term://*toggleterm#* lua set_terminal_keymaps()')
 
 -- git blame
 require('gitblame').setup({
