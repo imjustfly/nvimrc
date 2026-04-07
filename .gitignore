@@ -4,3 +4,4 @@ plugged/
 cache/
 .netrwhist
 *.spl
+nvim-pack-lock.json
