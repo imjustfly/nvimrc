@@ -1,4 +1,4 @@
--- new_init.lua (Neovim 0.12+)
+-- init.lua (Neovim 0.12+)
 
 -- =========================
 -- bootstrap
@@ -47,11 +47,6 @@ vim.pack.add({
 
   { src = gh('nvim-treesitter/nvim-treesitter'), name = 'nvim-treesitter' },
 
-  gh('hrsh7th/nvim-cmp'),
-  gh('hrsh7th/cmp-nvim-lsp'),
-  gh('hrsh7th/cmp-buffer'),
-
-  gh('nvim-lualine/lualine.nvim'),
   gh('steelsojka/pears.nvim'),
   gh('akinsho/toggleterm.nvim'),
   gh('famiu/bufdelete.nvim'),
@@ -82,7 +77,22 @@ vim.o.tabstop = 4
 vim.o.foldmethod = 'indent'
 vim.o.foldnestmax = 5
 vim.o.foldlevel = 5
-vim.o.completeopt = 'menuone'
+vim.o.autocomplete = true
+vim.o.completeopt = 'menu,menuone,noinsert,nearest'
+vim.o.complete = '.,o,w,b,u,t'
+vim.o.pummaxwidth = 40
+vim.o.laststatus = 3
+vim.o.statusline = table.concat({
+  '> %f',                                 -- 文件名
+  '%m%r',                                -- 修改/只读
+  '%{&busy ? " ◐" : " OK"}',              -- busy 状态
+  ' %{%v:lua.vim.diagnostic.status()%}', -- 诊断
+  '%=',                                  -- 右对齐
+  '%{%v:lua.vim.ui.progress_status()%}', -- 进度
+  ' %y',                                 -- 文件类型
+  ' %l:%c',                              -- 行:列
+  ' %P ',                                -- 百分比
+})
 
 -- =========================
 -- clipboard provider (ssh_clipboard)
@@ -150,21 +160,10 @@ vim.keymap.set('x', 'gf', '<cmd>Telescope grep_string<cr>', { silent = true })
 -- LSP (built-in)
 -- =========================
 
-local capabilities = vim.lsp.protocol.make_client_capabilities()
-do
-  local ok, cmp_lsp = pcall(require, 'cmp_nvim_lsp')
-  if ok then
-    capabilities = cmp_lsp.default_capabilities(capabilities)
-  end
-end
-
-vim.lsp.config('*', {
-  capabilities = capabilities,
-})
-
 vim.api.nvim_create_autocmd('LspAttach', {
   group = vim.api.nvim_create_augroup('user.lsp.attach', { clear = true }),
   callback = function(ev)
+    vim.lsp.completion.enable(true, ev.data.client_id, ev.buf)
     local client = vim.lsp.get_client_by_id(ev.data.client_id)
     if client then
       client.server_capabilities.semanticTokensProvider = nil
@@ -187,7 +186,7 @@ vim.lsp.config.gopls = {
 vim.lsp.config.pylsp = {
   cmd = { 'pylsp' },
   filetypes = { 'python' },
-  root_markers = { 'pyproject.toml', 'setup.py', 'requirements.txt' },
+  root_markers = { 'pyproject.toml', 'setup.py', 'requirements.txt', '.git' },
   settings = {
     pylsp = {
       plugins = {
@@ -238,60 +237,9 @@ do
 end
 
 do
-  local lualine = safe_require('lualine')
-  if lualine then
-    lualine.setup({
-      sections = {
-        lualine_b = { 'branch' },
-        lualine_c = { { 'buffers', buffers_color = { active = 'white' } } },
-        lualine_x = { 'diff', 'diagnostics', 'filetype' },
-      },
-      options = { section_separators = '', component_separators = '', globalstatus = true },
-    })
-  end
-end
-
-do
   local pears = safe_require('pears')
   if pears then
     pears.setup()
-  end
-end
-
-do
-  local cmp = safe_require('cmp')
-  if cmp then
-    local has_words_before = function()
-      local line, col = table.unpack(vim.api.nvim_win_get_cursor(0))
-      if col == 0 then
-        return false
-      end
-      local l = vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]
-      return l:sub(col, col):match('%s') == nil
-    end
-
-    cmp.setup({
-      preselect = cmp.PreselectMode.None,
-      sources = cmp.config.sources({
-        { name = 'nvim_lsp' },
-        { name = 'buffer' },
-      }),
-      completion = {
-        autocomplete = false,
-      },
-      mapping = {
-        ['<Tab>'] = cmp.mapping(function(fallback)
-          if has_words_before() then
-            cmp.complete()
-          else
-            fallback()
-          end
-        end, { 'i', 's' }),
-        ['<C-n>'] = cmp.mapping.select_next_item(),
-        ['<C-p>'] = cmp.mapping.select_prev_item(),
-        ['<CR>'] = cmp.mapping.confirm({ select = true }),
-      },
-    })
   end
 end
 
