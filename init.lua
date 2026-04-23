@@ -6,6 +6,14 @@
 
 vim.g.mapleader = ','
 
+vim.pack.del_non_active = function()
+  local pkgs = vim.iter(vim.pack.get())
+    :filter(function(x) return not x.active end)
+    :map(function(x) return x.spec.name end)
+    :totable()
+  vim.pack.del(pkgs)
+end
+
 local function safe_require(mod)
   local ok, m = pcall(require, mod)
   if ok then
@@ -45,7 +53,8 @@ vim.pack.add({
   gh('nvim-lua/plenary.nvim'),
   gh('nvim-telescope/telescope.nvim'),
 
-  { src = gh('nvim-treesitter/nvim-treesitter'), name = 'nvim-treesitter' },
+  gh('nvim-treesitter/nvim-treesitter'),
+  gh('AlexvZyl/nordic.nvim'),
 
   gh('steelsojka/pears.nvim'),
   gh('akinsho/toggleterm.nvim'),
@@ -77,15 +86,14 @@ vim.o.tabstop = 4
 vim.o.foldmethod = 'indent'
 vim.o.foldnestmax = 5
 vim.o.foldlevel = 5
-vim.o.autocomplete = true
-vim.o.completeopt = 'menu,menuone,noinsert,nearest'
+vim.o.completeopt = 'menu,menuone,preinsert,nearest'
 vim.o.complete = '.,o,w,b,u,t'
 vim.o.pummaxwidth = 40
 vim.o.laststatus = 3
 vim.o.statusline = table.concat({
-  '> %f',                                 -- 文件名
+  '> %f',                                -- 文件名
   '%m%r',                                -- 修改/只读
-  '%{&busy ? " ◐" : " OK"}',              -- busy 状态
+  '%{&busy ? " ◐" : " OK"}',             -- busy 状态
   ' %{%v:lua.vim.diagnostic.status()%}', -- 诊断
   '%=',                                  -- 右对齐
   '%{%v:lua.vim.ui.progress_status()%}', -- 进度
@@ -155,6 +163,14 @@ vim.keymap.set('n', '<C-l>', '<cmd>bn<cr>', { silent = true })
 vim.keymap.set('n', '<C-x>', '<cmd>Bdelete<cr>', { silent = true })
 
 vim.keymap.set('x', 'gf', '<cmd>Telescope grep_string<cr>', { silent = true })
+vim.keymap.set('i', '<Tab>', function()
+  local col = vim.fn.col('.') - 1
+  if col == 0 or vim.fn.getline('.'):sub(col, col):match('%s') then
+    return '<Tab>'
+  end
+
+  return '<C-n>'
+end, { expr = true, silent = true })
 
 -- =========================
 -- LSP (built-in)
@@ -205,36 +221,16 @@ vim.lsp.config.rust_analyzer = {
 vim.lsp.enable({ 'clangd', 'gopls', 'pylsp', 'rust_analyzer' })
 
 -- =========================
+-- treesitter
+-- =========================
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = { 'cpp', 'c', 'lua', 'python', 'thrift', 'proto', 'go' },
+  callback = function() vim.treesitter.start() end,
+})
+
+-- =========================
 -- plugin setups
 -- =========================
-
-do
-  -- NOTE: recent nvim-treesitter versions expose `require('nvim-treesitter').setup()`.
-  -- Older configs used `nvim-treesitter.configs`, but that module is not always present.
-  local ts = safe_require('nvim-treesitter')
-  if ts then
-    ts.setup({
-      ensure_installed = { 'cpp', 'go', 'python' },
-      highlight = {
-        enable = true,
-        additional_vim_regex_highlighting = { 'python' },
-      },
-      incremental_selection = {
-        enable = true,
-        keymaps = {
-          init_selection = '<CR>',
-          node_incremental = '<CR>',
-          node_decremental = '<BS>',
-          scope_incremental = '<TAB>',
-        },
-      },
-      indent = {
-        enable = true,
-        disable = { 'python' },
-      },
-    })
-  end
-end
 
 do
   local pears = safe_require('pears')
@@ -295,4 +291,8 @@ end
 -- colorscheme
 -- =========================
 
-pcall(vim.cmd, 'colorscheme 256_noir')
+require("nordic").setup({
+  transparent = { bg = true}
+})
+
+vim.cmd.colorscheme("nordic")
