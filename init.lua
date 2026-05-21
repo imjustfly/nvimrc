@@ -86,8 +86,8 @@ vim.o.tabstop = 4
 vim.o.foldmethod = 'indent'
 vim.o.foldnestmax = 5
 vim.o.foldlevel = 5
-vim.o.completeopt = 'menu,menuone,preinsert,nearest'
-vim.o.complete = '.,o,w,b,u,t'
+vim.o.completeopt = 'menu,menuone,noinsert'
+vim.o.complete = 'o,.,w,b,u,t'
 vim.o.pummaxwidth = 40
 vim.o.laststatus = 3
 vim.o.statusline = table.concat({
@@ -224,7 +224,7 @@ vim.lsp.enable({ 'clangd', 'gopls', 'pylsp', 'rust_analyzer' })
 -- treesitter
 -- =========================
 vim.api.nvim_create_autocmd('FileType', {
-  pattern = { 'cpp', 'c', 'lua', 'python', 'thrift', 'proto', 'go' },
+  pattern = { 'cpp', 'c', 'lua', 'python', 'thrift', 'proto', 'go' , 'yaml'},
   callback = function() vim.treesitter.start() end,
 })
 
